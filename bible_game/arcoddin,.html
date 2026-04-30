@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3단계 성경 암송 아코디언</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 아코디언 애니메이션 핵심 */
+        .accordion-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-wrapper.open { grid-template-rows: 1fr; }
+        .accordion-inner { overflow: hidden; }
+        .chevron { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        /* 빈칸 및 텍스트 스타일 */
+        .blank {
+            background-color: #e2e8f0;
+            color: transparent;
+            border-bottom: 2px solid #64748b;
+            padding: 0 4px;
+            margin: 0 2px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .reveal .blank {
+            background-color: transparent;
+            color: #2563eb;
+            border-bottom-color: transparent;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 py-10 px-4 font-sans text-gray-800">
+
+    <div id="accordion-container" class="max-w-2xl mx-auto w-full flex flex-col gap-4">
+        <!-- JS를 통해 데이터가 로드됩니다 -->
+    </div>
+
+    <script>
+        // 랜덤 빈칸 생성 함수
+        function createBlanks(text) {
+            const words = text.split(' ');
+            return words.map(word => {
+                if (word.length >= 2 && Math.random() > 0.6) {
+                    return `<span class="blank">${word}</span>`;
+                }
+                return word;
+            }).join(' ');
+        }
+
+        async function loadBibleData() {
+            try {
+                // test.json 파일을 가져옵니다 (데이터 구조가 수정되었다고 가정)
+                const response = await fetch('./acrodion.json');
+                const bibleData = await response.json();
+                console.log(bibleData);
+                renderAccordion(bibleData);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('accordion-container').innerHTML = `<p class='text-center py-10 text-red-500'>데이터 로드 실패 (test.json을 확인하세요)</p>`;
+            }
+        }
+
+        function renderAccordion(data) {
+            const container = document.getElementById('accordion-container');
+            const chevronIcon = `<svg class="chevron w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>`;
+
+            let html = '';
+            data.forEach((item) => {
+                // Depth 1: Title
+                html += `
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-2">
+                    <button class="level-btn w-full flex justify-between items-center p-4 hover:bg-gray-50 transition-colors" data-level="1">
+                        <span class="text-lg font-bold text-gray-900">${item.title}</span>
+                        ${chevronIcon}
+                    </button>
+                    
+                    <div class="accordion-wrapper">
+                        <div class="accordion-inner bg-gray-50/50">
+                            <!-- Depth 2: Sub Title -->
+                            <div class="px-3 pb-3">
+                                <button class="level-btn w-full flex justify-between items-center p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors mt-1" data-level="2">
+                                    <span class="text-base font-semibold text-blue-700">${item.sub_title}</span>
+                                    ${chevronIcon}
+                                </button>
+                                
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-inner pt-2 flex flex-col gap-2">
+                                        ${item.list.map(listItem => `
+                                            <!-- Depth 3: Summary -->
+                                            <div class="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+                                                <button class="level-btn w-full flex justify-between items-center p-3 hover:bg-blue-50/50 transition-colors" data-level="3">
+                                                    <span class="text-sm font-medium text-gray-700">📌 ${listItem.summary}</span>
+                                                    ${chevronIcon}
+                                                </button>
+                                                
+                                                <div class="accordion-wrapper">
+                                                    <div class="accordion-inner bg-blue-50/30 p-4 border-t border-gray-100">
+                                                        <!-- Verses: sub_list -->
+                                                        ${listItem.sub_list.map(verse => `
+                                                            <div class="verse-box mb-5 last:mb-0 cursor-pointer group" onclick="this.classList.toggle('reveal')">
+                                                                <span class="block text-[10px] font-bold text-blue-400 mb-1 uppercase tracking-tighter">${verse.book} ${verse.chapter}:${verse.verse}</span>
+                                                                <p class="text-[15px] text-gray-700 leading-relaxed break-keep group-hover:text-black transition-colors">
+                                                                    ${createBlanks(verse.text)}
+                                                                </p>
+                                                            </div>
+                                                        `).join('')}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // 통합 이벤트 리스너
+        document.getElementById('accordion-container').addEventListener('click', (e) => {
+            const btn = e.target.closest('.level-btn');
+            if (!btn) return;
+
+            const wrapper = btn.nextElementSibling;
+            const icon = btn.querySelector('.chevron');
+
+            // 토글
+            wrapper.classList.toggle('open');
+            icon.classList.toggle('rotate-180');
+
+            // 클릭 시 시각적 효과 (활성화 상태 표현)
+            if (btn.dataset.level === "1") {
+                btn.classList.toggle('bg-gray-100');
+            }
+        });
+
+        loadBibleData();
+    </script>
+</body>
+</html>

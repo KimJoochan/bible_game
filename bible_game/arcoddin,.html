@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3단계 성경 암송 아코디언</title>
+    <meta property="og:title" content="계시록 암송 마스터" />
+    <meta property="og:description" content="계시록 전체를 암송 해보세요!" />
+    <meta property="og:image" content="./img/memory_og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <title>성경 암송</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* 아코디언 애니메이션 핵심 */
@@ -45,7 +50,7 @@
         function createBlanks(text) {
             const words = text.split(' ');
             return words.map(word => {
-                if (word.length >= 2 && Math.random() > 0.6) {
+                if (word.length >= 2 && Math.random() > 0.3) {
                     return `<span class="blank">${word}</span>`;
                 }
                 return word;

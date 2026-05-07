@@ -87,7 +87,7 @@
                     <div class="btn_area__rectangle" data-next_step="2" data-level="1" onclick="moveToFlow(this)">
                         <div class="btn_area__hor">
                             <div class="btn_area__img v1">
-                                <img src="./img/3.png" alt="빈칸 맞추기">
+                                <img src="./img/v2/3.png" alt="빈칸 맞추기">
                             </div>
                             <div class="btn_area__text">
                                 <h2>빈칸 맞추기</h2>
@@ -104,7 +104,7 @@
                     <div class="btn_area__rectangle" data-next_step="2" data-level="2" onclick="moveToFlow(this)">
                         <div class="btn_area__hor">
                             <div class="btn_area__img v2">
-                                <img src="./img/6.png" alt="빈칸 맞추기">
+                                <img src="./img/v2/6.png" alt="빈칸 맞추기">
                             </div>
                             <div class="btn_area__text">
                                 <h2>문장 순서 맞추기</h2>
@@ -121,7 +121,7 @@
                     <div class="btn_area__rectangle" data-next_step="2" data-level="3" onclick="moveToFlow(this)">
                         <div class="btn_area__hor">
                             <div class="btn_area__img v3">
-                                <img src="./img/1.png" alt="빈칸 맞추기">
+                                <img src="./img/v2/1.png" alt="빈칸 맞추기">
                             </div>
                             <div class="btn_area__text">
                                 <h2>문장 완성하기</h2>
@@ -144,7 +144,9 @@
                     <img src="./img/v2/back_btn.png" alt="뒤로가기">
                 </div>
                 <img src="./img/v2/sectel01.png" alt="섹텔" class="char">
-                <img src="./img/v2/range.png" alt="범위" class="range">
+                <div class="range">
+                    <p>학습할 계시록의 장을 <br/>선택해주세요!</p>
+                </div>
             </div>
             <div class="bto_area">
                 <div class="btn" data-next_step="3" data-book="1" onclick="selectBook(this)">
@@ -221,7 +223,7 @@
         <div class="content-inner">
             <div class="top_area">
                 <div class="back_btn">
-                    <img src="./img/v2/back_btn.png" alt="뒤로가기" data-next_step="1" onclick="moveToStep(this.dataset.next_step)">
+                    <img src="./img/v2/back_btn.png" alt="뒤로가기" data-next_step="2" onclick="moveToStep(this.dataset.next_step)">
                     <div class="rang_switch">
                         <p>범위 선택</p>
                         <div class="bar">
@@ -230,12 +232,14 @@
                     </div>
                 </div>
                 <img src="./img/v2/sectel01_v2.png" alt="섹텔" class="char">
-                <img src="./img/v2/range_v2.png" alt="범위" class="range">
+                <div class="range">
+                    <p>학습할 계시록의<br/>범위를 선택해주세요!</p>
+                </div>
             </div>
             <div class="bto_list choice_sub_key__wrap">
                 <div class="bto__title_area">
                     <p>1장</p>
-                    <img src="./img/v2/close.png" data-next_step="2" onclick="moveToStep(this.dataset.next_step)"/>
+                    <img src="./img/v2/close.png" onclick="resetVerse()"/>
                 </div>
                 <div class="bto_area">
                     <div class="btn" data-verse="1">
@@ -386,7 +390,9 @@
                 <div class="game_card_btn error game_hint_open">
                     <p style="font-weight: 600; font-size: 14px;">정답 보기</p>
                 </div>
-                <div class="game_card" id="two-lyrics-display"></div>
+                <div class="game_card" id="two-lyrics-display">
+                    <div class="game_card_inner"></div>
+                </div>
                 <div class="game_card_basket on" id="two-chips-display"></div>
                 <div class="game_card_basket fail" id="two-fail-display">
                     <div class="img_character">
@@ -516,9 +522,9 @@
   </div>
   <script>
     const game = {
-        level: '0',
-        chapter : 0,
-        range : [],
+        level: '2',
+        chapter : 1,
+        range : [1,2],
         selected_range : true,
         range_start : 0,
         range_end : 0,
@@ -531,6 +537,15 @@
         document.querySelector('#step-3 .bto_area').querySelectorAll('.btn').forEach(el=>{
             el.classList.remove('on');
         })
+        document.querySelector("#step-3 .select_btn").classList.remove('on');
+      
+        if(game.selected_range){
+            document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장(범위 선택)`;
+            document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>시작점을 선택해주세요!</p>`;
+        }else{
+            document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장`;
+            document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>구절을 선택해주세요!</p>`
+        }
     })
 
     const bibleObj = [
@@ -973,8 +988,17 @@
     function fill_progress_bard(percentage){
         document.querySelector('.game_gaze_bar__progress_bar').style.width = (percentage-7)+'%';
     }
+    function resetVerse(){
+        document.querySelector('#step-3 .bto_area').querySelectorAll('.btn').forEach(el=>{
+            el.classList.remove('on');
+        })
+    }
     class BlankFiller{
         constructor() {
+            this.state = {
+                fail : false,
+                success : false,
+            }
             this.isEventsBound = false; // 이벤트 중복 방지 플래그
             this.targetIndices = [];
             this.activeIdx = null;
@@ -1001,7 +1025,6 @@
             let chapter = parseInt(game.chapter) -1;
             let simpletData = [];
             let range = [...game.range];
-            console.log(range);
             range.sort((a,b)=>a-b);
             for(let idx of range){
                 let temp = [];
@@ -1038,11 +1061,11 @@
                 .map((item, idx) => item.choice ? idx : null)
                 .filter(idx => idx !== null);
 
-            this.targetIndices = choiceIndices.sort(() => Math.random() - 0.5).slice(0, 1);
+            this.targetIndices = choiceIndices.sort(() => Math.random() - 0.5).slice(0, 4);
 
             this.renderLyrics();
             this.renderChips();
-            // this.autoFocusNext();
+            this.autoFocusNext();
             this.bindEvents();
         }
 
@@ -1101,8 +1124,16 @@
             const container = document.getElementById('chips-display');
             const answerTexts = this.targetIndices.map(idx => ({ text: this.simpleVerseData[this.currentPage][idx].text, idx }));
             let shuffled = [...answerTexts].sort(() => Math.random() - 0.5);
+            let top  = [...shuffled].slice(0,2)
+            console.log(top);
+            let bottom  = [...shuffled].slice(2,4)
+            console.log(bottom);
 
-            shuffled.forEach(({ text, idx }) => {
+
+
+            const centEl = document.createElement('div');
+            centEl.classList.add('center');
+            top.forEach(({ text, idx }) => {
                 const divEl = document.createElement('div');
                 divEl.className = 'chips-area';
                 const btn = document.createElement('button');
@@ -1110,15 +1141,35 @@
                 btn.textContent = text;
                 btn.dataset.val = text;
                 btn.dataset.idx = idx;
-                btn.onclick = () => this.fillBlank(text, btn);
+                btn.dataset.area = 'top';
+                btn.onclick = () => this.fillBlank(text, btn, 'top');
                 divEl.appendChild(btn);
-                container.appendChild(divEl);
+                centEl.appendChild(divEl);
             });
+            container.appendChild(centEl)
+
+            const centEl2 = document.createElement('div');
+            centEl2.classList.add('center');
+            bottom.forEach(({ text, idx }) => {
+                const divEl = document.createElement('div');
+                divEl.className = 'chips-area';
+                const btn = document.createElement('button');
+                btn.className = 'chip';
+                btn.textContent = text;
+                btn.dataset.val = text;
+                btn.dataset.idx = idx;
+                btn.onclick = () => this.fillBlank(text, btn, 'bottom');
+                divEl.appendChild(btn);
+                centEl2.appendChild(divEl);
+            });
+            container.appendChild(centEl2)
+            
         }
 
         handleBlankClick(idx) {
             const el = document.getElementById(`blank-${idx}`);
             const container = document.getElementById('chips-display');
+            let area = el.dataset.area;
             if (el.classList.contains('filled')) {
                 const word = el.textContent;
                 el.textContent = '';
@@ -1127,7 +1178,11 @@
                     .find(c => c.querySelector('.chip').dataset.val === word && c.querySelector('.chip').classList.contains('hidden'));
                 if (chip) chip.querySelector('.chip').classList.remove('hidden');
 
-                container.prepend(chip);
+                if (area === 'top') {
+                    container.querySelectorAll('.center')[0].appendChild(chip);
+                } else {
+                    container.querySelectorAll('.center')[1].prepend(chip);
+                }
                 chip.classList.add('just-added');
                 this.finishChecking();
             }
@@ -1148,7 +1203,7 @@
         }
 
         // 단어 채우기
-        fillBlank(text, chipEl) {
+        fillBlank(text, chipEl, area) {
             if (this.activeIdx === null) return;
             const targetBlank = document.getElementById(`blank-${this.activeIdx}`);
             // 만약 이미 단어가 있다면 교체 (기존 단어는 다시 칩으로)
@@ -1161,6 +1216,7 @@
 
             targetBlank.textContent = text;
             targetBlank.classList.add('filled');
+            targetBlank.dataset.area = area;
             chipEl.classList.add('hidden'); // 클릭한 칩 숨기기
             this.autoFocusNext();
             this.finishChecking();
@@ -1199,6 +1255,7 @@
             document.querySelector("#chips-display").querySelectorAll('.chip').forEach(chip => {
                 chip.classList.remove('hidden');
             });
+            this.autoFocusNext();
         }
         next_round(){
             document.querySelector("#chips-display").innerHTML = "";
@@ -1242,27 +1299,43 @@
                 answer = this.simpleVerseData[this.currentPage][idx].text;
                 if(answer.replace(/\s/g, '') == ele.textContent.replace(/\s/g, '')) {
                     ele.classList.remove('wrong');
-                    
+                    ele.classList.add('collect');
                 }else{
+                    ele.classList.remove('collect');
                     ele.classList.add('wrong');
                     all_correct = false
                 }
             }
 
             if(all_correct) {
-                document.getElementById('one-bottom_btn_area').classList.remove('fail');
-                document.getElementById('one-bottom_btn_area').classList.add('success');
-                document.querySelector('#fail-display').classList.remove('on');
-                document.querySelector('#success-display').classList.add('on');
-                document.getElementById('level_one_section').classList.add('success');
-                document.getElementById('level_one_section').classList.remove('failed');
+                this.state.fail = false;
+                this.state.success = true;
             }else{
+                this.state.success = false;
+                this.state.fail = true;
+            }
+            this.updateDisplay();
+        }
+
+        updateDisplay() {
+            document.querySelector("#chips-display").classList.remove('on');
+            if(this.state.fail) {
+                document.querySelector("#lyrics-display").querySelectorAll('.blank').forEach(blank => {
+                    blank.classList.remove('active');
+                });
                 document.getElementById('one-bottom_btn_area').classList.add('fail');
                 document.getElementById('one-bottom_btn_area').classList.remove('success');
                 document.getElementById('fail-display').classList.add('on');
                 document.getElementById('success-display').classList.remove('on');
                 document.getElementById('level_one_section').classList.remove('success');
                 document.getElementById('level_one_section').classList.add('failed');
+            } else if(this.state.success) {
+                document.getElementById('one-bottom_btn_area').classList.remove('fail');
+                document.getElementById('one-bottom_btn_area').classList.add('success');
+                document.getElementById('fail-display').classList.remove('on');
+                document.getElementById('success-display').classList.add('on');
+                document.getElementById('level_one_section').classList.add('success');
+                document.getElementById('level_one_section').classList.remove('failed');
             }
         }
 
@@ -1282,6 +1355,8 @@
             }
         }
     }
+
+
     class FlowFiller {
         constructor() {
             this.isEventsBound = false; // 이벤트 중복 방지 플래그
@@ -1397,7 +1472,8 @@
 
         // 가사 영역 렌더링
         renderLyrics() {
-            const container = document.getElementById('two-lyrics-display');
+            // const container = document.getElementById('two-lyrics-display');
+            const container = document.getElementById('two-lyrics-display').querySelector('.game_card_inner');
             container.innerHTML = '';
             this.simpleVerseData[this.currentPage].forEach((item, idx) => {
                 if (this.targetIndices.includes(idx)) {
@@ -1519,14 +1595,15 @@
                 const ele = document.getElementById(`two-blank-${targetIdx}`);
                 // 모범 답안
                 const answer = this.simpleVerseData[this.currentPage][targetIdx].text.replace(/\s/g, '');
-                
                 if (i < this.filledWords.length) {
                     // 유저가 채워 넣은 답안
                     const userAnswer = this.filledWords[i].text.replace(/\s/g, '');
                     if (answer === userAnswer) {
                         ele.classList.remove('wrong');
+                        ele.classList.add('collect');
                     } else {
                         ele.classList.add('wrong');
+                        ele.classList.remove('collect');
                         all_correct = false;
                     }
                 } else {
@@ -1577,7 +1654,7 @@
             
             const blanks = document.querySelector('#two-lyrics-display').querySelectorAll('.blank');
             for (let ele of blanks) {
-                ele.classList.remove('wrong', 'filled');
+                ele.classList.remove('wrong', 'filled', 'collect', 'active');
                 ele.textContent = "";
             }
             
@@ -1880,9 +1957,11 @@
     function selectBook(e){
         let book = e.dataset.book;
         game.chapter = book;
-        document.querySelector('#step-3').querySelector('.bto__title_area>p').innerHTML = `요한계시록 ${book}장`
+        document.querySelector('#step-3').querySelector('.bto__title_area>p').innerHTML = `요한계시록 ${book}장(범위 선택)`
         let nextStep = e.dataset.next_step;
-        moveToStep(nextStep, book);
+        setTimeout(() => {
+            moveToStep(nextStep, book);
+        }, 500);
         let total_verse = bibleObj[book-1].length
         document.querySelector("#step-3").querySelector('.bto_area').innerHTML = "";
         for(let i=1; i<=total_verse; i++){
@@ -1918,6 +1997,21 @@
      * 실제 화면 전환 로직
      */
     function renderStep(stepNum) {
+        console.log(stepNum);
+        if(stepNum){
+            document.querySelectorAll('.img_area__char').forEach(el=>{
+                el.style.display = 'none';
+            })
+            console.log(game.level);
+            if(game.level == 1){
+                document.querySelector('.img_area__char.one').style.display = 'block';
+            }else if(game.level == 2){
+                document.querySelector('.img_area__char.two').style.display = 'block';
+            }else if(game.level == 3){
+                document.querySelector('.img_area__char.three').style.display = 'block';
+            }
+            
+        }
       // 1. 모든 스텝 클래스 정리
       document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
       
@@ -1949,7 +2043,7 @@
         if (chapterParam) {
             // 파라미터가 있으면 숫자로 변환
             game.chapter = parseInt(chapterParam);
-            document.querySelector('#step-3').querySelector('.bto__title_area>p').innerHTML = `요한계시록 ${game.chapter}장`
+            document.querySelector('#step-3').querySelector('.bto__title_area>p').innerHTML = `요한계시록 ${game.chapter}장(범위 선택)`
         } 
 
         if (levelParam) {
@@ -1965,7 +2059,7 @@
         // 기본값 설정 및 범위 제한 (사용자님의 기존 로직 유지)
         initialStep = initialStep || 1;
         
-        if (initialStep > 3) { // 5단계까지 있으므로 5로 수정
+        if (initialStep > 2) { // 5단계까지 있으므로 5로 수정
             initialStep = 2;
         }
 
@@ -1983,6 +2077,7 @@
         let exist_on = false;
         let verse_range = [];
         let choiceSubKeyBackBtn = document.querySelector('#step-3').querySelector('.select_btn');
+       
         if(!game.selected_range){
             key.classList.toggle('on');
             document.querySelector('#step-3').querySelector('.bto_area').querySelectorAll('.btn').forEach(k => {
@@ -1992,27 +2087,29 @@
                 }
             });
         }else{
-            if(game.range_start == 0 && game.range_end == 0){
-                game.range_start = key.dataset.verse;
+           
+
+            if(parseInt(game.range_start) == 0 && parseInt(game.range_end) == 0){
+                game.range_start = parseInt(key.dataset.verse);
                 document.querySelector('#step-3').querySelector('.bto_area').querySelectorAll('.btn').forEach(k => {
                     k.classList.remove('on');
                 })
-            }else if(game.range_start != 0 && game.range_end == 0){
-                game.range_end = key.dataset.verse;
-            }else if(game.range_start != 0 && game.range_end != 0){
-                game.range_start = key.dataset.verse;
+            }else if(parseInt(game.range_start) != 0 && parseInt(game.range_end) == 0){
+                game.range_end = parseInt(key.dataset.verse);
+            }else if(parseInt(game.range_start) != 0 && parseInt(game.range_end) != 0){
+                game.range_start = parseInt(key.dataset.verse);
                 game.range_end = 0;
                 document.querySelectorAll('.btn').forEach(k => {
                     k.classList.remove('on');
                 });
                 key.classList.add('on');
                 choiceSubKeyBackBtn.classList.remove('on');
-                return false;
             }
 
             key.classList.add('on');
 
-            if(game.range_start != 0 && game.range_end != 0){
+          
+            if(parseInt(game.range_start) != 0 && parseInt(game.range_end) != 0){
                 exist_on = true;
                 verse_range = [];
                 document.querySelector('#step-3 .bto_area').querySelectorAll('.btn').forEach(k => {
@@ -2035,6 +2132,19 @@
                         }
                     }
                 })
+            }
+
+            console.log(game.range_start, game.range_end);
+            if(parseInt(game.range_start) == 0 && parseInt(game.range_end) == 0 ){
+                document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장`;
+                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>시작점을 선택해주세요!</p>`;
+            }
+            if(parseInt(game.range_start) >0 && parseInt(game.range_end) == 0){
+                document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장(${game.range_start}절~)`;
+                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>종료점을 선택해주세요!</p>`;
+            }else if(parseInt(game.range_start) > 0 && parseInt(game.range_end)>0){
+                document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장(${game.range_start}절~${game.range_end}절)`;
+                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>범위 선택완료!</p>`;
             }
         }
 

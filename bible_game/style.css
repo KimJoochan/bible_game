@@ -56,8 +56,9 @@
         z-index: 2;
         border-bottom: 4px solid #E5E5E5;
         padding: 16px;
+        cursor: pointer;
     }
-    
+
     #step-1 .btn_area__hor{
         display: flex;
         align-items: center;
@@ -109,16 +110,25 @@
 
     #step-1 .btn_list_area .btn_area.v1 .btn_area__rectangle:active{
         background: #FDD7DC;
+        position: relative;
+        top: 2px;
+        border-bottom : 0;
     }
     #step-1 .btn_list_area .btn_area.v2 .btn_area__rectangle:active {
         background: #FDEBBF;
+        position: relative;
+        top: 2px;
+        border-bottom : 0;
     }
     #step-1 .btn_list_area .btn_area.v3 .btn_area__rectangle:active {
         background: #D6E9F9;
+        position: relative;
+        top: 2px;
+        border-bottom : 0;
     }
 
     #step-2 .content-inner{
-        background-color: #BDEDFD;
+        background: #BDEDFD99;
         border-radius: 20px;
         max-height: 750px;
         border: 2px solid #E5E5E5;
@@ -140,11 +150,29 @@
     }
 
     #step-2 .top_area .range{
-        width: 230px;
+        /* width: 230px;
         height: auto;
         position: absolute;
         bottom: 60px;
+        left: 30%; */
+        width: 188px;
+        height: 85px;
+        position: absolute;
+        top: 30px;
         left: 30%;
+        border-radius: 12px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #step-2 .top_area .range > p {
+        font-family: Pretendard;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 130%;
+        letter-spacing: -2.5%;
+        color: #111111;
     }
     #step-2 .bto_area{
         width: 100%;
@@ -155,9 +183,12 @@
         border-bottom-right-radius: 20px;
         padding: 32px;
         display: flex;
+        border: 2px solid #E5E5E5;
+        border-right: 0;
+        border-left: 0;
         flex-wrap: wrap;
     }
-    #step-2 .bto_area  .btn{
+    #step-2 .bto_area .btn{
         width: 56px;
         height: 56px;
         background-color: #f6f7f7;
@@ -166,11 +197,18 @@
         box-shadow: 0px 4px 0px 0px #00000040;
         margin-right: 20px;
         margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
     }
     #step-2 .bto_area  .btn:active{
         background: #84D8FE;
         border: 4px solid #1CB0F5;
         box-shadow: 0px 4px 0px 0px #1584B8;
+        position: relative;
+        top: 3px;
     }
     #step-2 .bto_area  .btn:active .btn__text{
         color: #1CB0F5;
@@ -180,16 +218,16 @@
     }
     #step-2 .bto_area .btn__text{
         font-weight: 700;
-        font-size: 36px;
-        text-align: center;
+        font-size: 40px;
         color: #CBCCCC;
         text-align: center;
-        line-height: 1;
+        line-height: 32px;
+        height: 34px;
     }
 
     
     #step-3 .content-inner{
-        background-color: #BDEDFD;
+        background: #BDEDFD99;
         border-radius: 20px;
         max-height: 750px;
         border: 2px solid #E5E5E5;
@@ -215,16 +253,42 @@
         z-index: 3;
     }
 
-    #step-3 .top_area .range{
+    /* #step-3 .top_area .range{
         width: 178px;
         height: auto;
         position: absolute;
         bottom: 20px;
         left: 29%;
+    } */
+    #step-3 .top_area .range{
+        /* width: 230px;
+        height: auto;
+        position: absolute;
+        bottom: 60px;
+        left: 30%; */
+        width: 188px;
+        height: 85px;
+        position: absolute;
+        top: 60px;
+        left: 40%;
+        border-radius: 12px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #step-3 .top_area .range > p {
+        font-family: Pretendard;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 130%;
+        letter-spacing: -2.5%;
+        color: #111111;
     }
 
     #step-3 .rang_switch{
         display: flex;
+        cursor: pointer;
     }
     #step-3 .rang_switch p {
         font-weight: 600;
@@ -271,6 +335,7 @@
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         max-height: 500px;
+        padding-top: 16px;
     }
     #step-3 .bto_area{
         width: 100%;
@@ -279,20 +344,26 @@
         display: flex;
         flex-wrap: wrap;
     }
-    #step-3 .bto_area  .btn{
+    #step-3 .bto_area .btn{
         width: 40px;
         height: 40px;
         background-color: #fff;
-        border-radius: 14px;
+        border-radius: 8px;
         border: 2px solid #E4E5E5;
         box-shadow: 0px 4px 0px 0px #E4E5E5;
         margin-right: 20px;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
     }
     #step-3 .bto_area  .btn:active{
         background: #84D8FE;
-        border: 4px solid #1CB0F5;
+        border: 2px solid #1CB0F5;
         box-shadow: 0px 4px 0px 0px #1584B8;
+        position: relative;
+        top: 3px;
     }
     #step-3 .bto_area  .btn:active .btn__text{
         color: #1CB0F5;
@@ -302,8 +373,10 @@
     }
     #step-3 .bto_area .btn.on{
         background: #84D8FE;
-        border: 4px solid #1CB0F5;
+        border: 2px solid #1CB0F5;
         box-shadow: 0px 4px 0px 0px #1584B8;
+        position: relative;
+        top: 3px;
     }
 
     #step-3 .bto_area .btn.on .btn__text{
@@ -351,6 +424,11 @@
         color: #fff;
     }
 
+    #step-3 .select_btn.on:active{
+        position: relative;
+        top: 3px;
+    }
+
     #step-3 .bto__title_area{
         width: 100%;
         height: 36px;
@@ -373,11 +451,11 @@
     
     #step-4 .bto_list{
         background-color: #F6F7F7;
-        padding: 32px;
+        padding: 20px;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         max-height: 500px;
-        max-width: 600px;
+        max-width: 355px;
         margin: 0 auto;
     }
     #step-4 .bto_area{
@@ -397,6 +475,7 @@
         justify-content: center;
         box-shadow: 0px 4px 0px 0px #E5E5E5;
         transition: all 0.3s ease;
+        cursor: pointer;
     }
 
     #step-4 .bto_area .select_btn p{
@@ -409,6 +488,11 @@
     #step-4 .bto_area .select_btn.on{
         background: #1CB0F6;
         box-shadow: 0px 4px 0px 0px #1899D6;
+    }
+
+    #step-4 .bto_area .select_btn.on:active{
+        position: relative;
+        top: 3px;
     }
     #step-4 .bto_area .select_btn.on p {
         color: #fff;
@@ -538,7 +622,7 @@
         left: 0;
         top: -40px;
         z-index: -1;
-        background-color: #2FABFF;
+        background-color: #1CB0F6;
         border-radius: 8px;
         font-size: 14px;
         font-weight: 600;
@@ -564,11 +648,11 @@
 
     #level_one_section .game_card{
         width:100%; 
-        background-color: #F5F5F5; 
+        background-color: #fefefe; 
         border-radius: 16px;
-        border-top-right-radius: 0;
         border-top-left-radius: 0;
         display: flex;
+        border: 2px solid #E5E5E5;
         flex-wrap: wrap;
         gap: 10px;
         padding: 10px;
@@ -577,8 +661,11 @@
         align-content: flex-start;
         position: relative;
         z-index: 2;
+        box-shadow: 0px 10px 0px 0px #1CB0F626;
     }
+
     #level_one_section .game_card_basket_line{
+        display: none;
         position: absolute;
         top: 5px;
         left: 0;
@@ -592,7 +679,12 @@
         border-bottom-right-radius: 16px;
     }
     #level_one_section .game_card .text{
-        height: 20px;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    #level_one_section .game_card .text.blank.active{
+        border: 2px solid #8A9A5B;
     }
     #level_one_section .game_card_basket{
         background-color: #D7F4FE;
@@ -604,14 +696,22 @@
         transition: transform 0.3s ease, opacity 0.3s ease;
         opacity: 0;
         visibility: hidden;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    #level_one_section .game_card_basket .center{
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     #level_one_section .game_card_basket.on{
         transform: translateY(-10px);
         opacity: 1;
         height: auto;
         visibility: visible;
-        min-height: 230px;
         padding: 15px;
+        padding-top: 30px;
         position: relative;
     }
     
@@ -648,11 +748,15 @@
     #level_one_section.success .game_card{
         background-color: #F6FFD0;
         border: 2px solid #B1D32C;
+        box-shadow: 0px 10px 0px 0px #8DC04540;
     }
     #level_one_section.success .game_card_basket{
         background-color: #D4E980;
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
+    }
+    #level_one_section.success .game_card_basket.on{
+        min-height: 230px;
     }
     #level_one_section.success .game_card_label{
         background-color: #B1D32C;
@@ -692,11 +796,15 @@
         color : #fff;
     }
 
+    #level_one_section .blank.collect{
+        background-color: #fff;
+        box-shadow: 0px 2px 0px 0px #E5E5E5;
+        border: 1.5px solid #E5E5E5;
+    }
     #level_one_section .blank.wrong{
         border: 1.5px solid #D46E7C;
         background: #FF9EAB;
         box-shadow: 0px 2px 0px 0px #D46E7C;
-        height: 25px;
         pointer-events: none;
     }
 
@@ -731,13 +839,14 @@
     #level_one_section .chip {
         width: auto;
         height: 37px;
-        border-radius: 6px;
+        border-radius: 8px;
         padding: 8px 10px;
-        border: 2.14px solid #CFCFCF;
-        box-shadow: 0px 4.27px 4.27px 0px #00000040;
-        font-size: 15px;
+        box-shadow: 0px 2px 0px 0px #E5E5E5;
+        font-size: 14px;
+        color: #111;
         font-weight: 500;
-
+        border: 1.5px solid #E5E5E5;
+        background-color: #fff;
         transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* 부드러운 가속도 */
         opacity: 1;
         transform: scale(1);
@@ -781,7 +890,11 @@
         border-radius: 6px;
         padding: 10px 20px;
         box-shadow: 0px 4px 0px 0px #E5E5E5;
+    }
 
+    #level_one_section .bottom_btn_area__inner:active{
+        position: relative;
+        top: 3px;
     }
 
     #level_one_section .bottom_btn_area__inner .bottom_btn_area__txt{
@@ -812,8 +925,8 @@
         color: #111;
     }
     #level_one_section .bottom_btn_area__inner.success{
-        border: 2px solid #8DC045;
         background-color: #B1D32C;
+        box-shadow: 0px 4px 0px 0px #8DC045;
         display: none;
     }
     #level_one_section .bottom_btn_area__inner.success:active{
@@ -835,8 +948,9 @@
         display: inline-flex;
         min-width: 84px;
         opacity: 1;
+        height: 30px;
         border-radius: 6px;
-        border: 2px solid #CFCFCF;
+        border: 1.5px solid #E5E5E5;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -863,6 +977,10 @@
         border: 1px solid #E5E5E5;
         box-shadow: 0px 4px 0px 0px #E5E5E5;
         color: #505050;
+    }
+    .choice_sub_key_back__btn:active{
+        position: relative;
+        top: 3px;
     }
     .choice_sub_key_back__btn.on{
         cursor: pointer;

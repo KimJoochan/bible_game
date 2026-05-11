@@ -10,11 +10,102 @@
   <meta property="og:image:height" content="630" />
   <title>계시록 완전 정복</title>
   <style>
+    /* 전체 스크롤바 크기 설정 (MUI처럼 얇게) */
+    .thin-scrollbar::-webkit-scrollbar {
+    width: 4px;  /* 세로 스크롤바 두께 */
+    height: 4px; /* 가로 스크롤바 두께 */
+    }
+
+    /* 스크롤바 막대(Thumb) 디자인 */
+    .thin-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 반투명한 회색 */
+    border-radius: 10px;                  /* 둥근 모서리 */
+    border: 2px solid transparent;        /* 막대 주변에 여백을 주어 더 얇아 보이게 함 */
+    background-clip: content-box;         /* 여백을 제외한 부분만 색칠 */
+    }
+
+    /* 스크롤바 막대 호버 시 */
+    .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.4); /* 조금 더 진한 회색 */
+    }
+
+    /* 스크롤바 트랙(Track) - 배경 */
+    .thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* 배경을 투명하게 해서 막대만 보이게 함 */
+    }
+
+    /* 파이어폭스용 (두께와 색상만 조절 가능) */
+    .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
     *{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
+    @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-display: swap;
+}
     /* 1. 레이아웃 초기화 및 스크롤 차단 */
     html, body {
       margin: 0;
@@ -60,10 +151,15 @@
     }
 
     .content-inner {
-      max-width: 355px;
-      max-height: 620px;
-      margin: 0 auto;
+        width: 90%;
+        max-width: 355px;
+        max-height: 620px;
+        margin: 0 auto;
     }
+    #step-1 .image_area img{
+        width : 100%;
+    }
+
   </style>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="section2.css">
@@ -141,79 +237,86 @@
         <div class="content-inner">
             <div class="top_area">
                 <div class="back_btn" data-next_step="1" onclick="moveToStep(this.dataset.next_step)">
-                    <img src="./img/v2/back_btn.png" alt="뒤로가기">
+                    <!-- <img src="./img/v2/back_btn.png" alt="뒤로가기"> -->
+                    <div class="back__arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                    </div>
                 </div>
                 <img src="./img/v2/sectel01.png" alt="섹텔" class="char">
                 <div class="range">
-                    <p>학습할 계시록의 장을 <br/>선택해주세요!</p>
+                    <p>학습할 계시록의 <span>장</span>을 <br/>선택하세요!</p>
                 </div>
             </div>
             <div class="bto_area">
-                <div class="btn" data-next_step="3" data-book="1" onclick="selectBook(this)">
-                    <p class="btn__text">1</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="2" onclick="selectBook(this)">
-                    <p class="btn__text">2</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="3" onclick="selectBook(this)">
-                    <p class="btn__text">3</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="4" onclick="selectBook(this)">
-                    <p class="btn__text">4</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="5" onclick="selectBook(this)">
-                    <p class="btn__text">5</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="6" onclick="selectBook(this)">
-                    <p class="btn__text">6</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="7" onclick="selectBook(this)">
-                    <p class="btn__text">7</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="8" onclick="selectBook(this)">
-                    <p class="btn__text">8</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="9" onclick="selectBook(this)">
-                    <p class="btn__text">9</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="10" onclick="selectBook(this)">
-                    <p class="btn__text">10</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="11" onclick="selectBook(this)">
-                    <p class="btn__text">11</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="12" onclick="selectBook(this)">
-                    <p class="btn__text">12</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="13" onclick="selectBook(this)">
-                    <p class="btn__text">13</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="14" onclick="selectBook(this)">
-                    <p class="btn__text">14</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="15" onclick="selectBook(this)">
-                    <p class="btn__text">15</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="16" onclick="selectBook(this)">
-                    <p class="btn__text">16</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="17" onclick="selectBook(this)">
-                    <p class="btn__text">17</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="18" onclick="selectBook(this)">
-                    <p class="btn__text">18</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="19" onclick="selectBook(this)">
-                    <p class="btn__text">19</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="20" onclick="selectBook(this)">
-                    <p class="btn__text">20</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="21" onclick="selectBook(this)">
-                    <p class="btn__text">21</p>
-                </div>
-                <div class="btn" data-next_step="3" data-book="22" onclick="selectBook(this)">
-                    <p class="btn__text">22</p>
+                <div class="bto_area__wrap">
+                    <div class="btn" data-next_step="3" data-book="1" onclick="selectBook(this)">
+                        <p class="btn__text">1</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="2" onclick="selectBook(this)">
+                        <p class="btn__text">2</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="3" onclick="selectBook(this)">
+                        <p class="btn__text">3</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="4" onclick="selectBook(this)">
+                        <p class="btn__text">4</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="5" onclick="selectBook(this)">
+                        <p class="btn__text">5</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="6" onclick="selectBook(this)">
+                        <p class="btn__text">6</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="7" onclick="selectBook(this)">
+                        <p class="btn__text">7</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="8" onclick="selectBook(this)">
+                        <p class="btn__text">8</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="9" onclick="selectBook(this)">
+                        <p class="btn__text">9</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="10" onclick="selectBook(this)">
+                        <p class="btn__text">10</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="11" onclick="selectBook(this)">
+                        <p class="btn__text">11</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="12" onclick="selectBook(this)">
+                        <p class="btn__text">12</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="13" onclick="selectBook(this)">
+                        <p class="btn__text">13</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="14" onclick="selectBook(this)">
+                        <p class="btn__text">14</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="15" onclick="selectBook(this)">
+                        <p class="btn__text">15</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="16" onclick="selectBook(this)">
+                        <p class="btn__text">16</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="17" onclick="selectBook(this)">
+                        <p class="btn__text">17</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="18" onclick="selectBook(this)">
+                        <p class="btn__text">18</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="19" onclick="selectBook(this)">
+                        <p class="btn__text">19</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="20" onclick="selectBook(this)">
+                        <p class="btn__text">20</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="21" onclick="selectBook(this)">
+                        <p class="btn__text">21</p>
+                    </div>
+                    <div class="btn" data-next_step="3" data-book="22" onclick="selectBook(this)">
+                        <p class="btn__text">22</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,8 +326,12 @@
         <div class="content-inner">
             <div class="top_area">
                 <div class="back_btn">
-                    <img src="./img/v2/back_btn.png" alt="뒤로가기" data-next_step="2" onclick="moveToStep(this.dataset.next_step)">
-                    <div class="rang_switch">
+                    <div class="back__arrow" data-next_step="2" onclick="moveToStep(this.dataset.next_step)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                    </div>
+                    <div class="rang_switch off">
                         <p>범위 선택</p>
                         <div class="bar">
                             <div class="bar__ball"></div>
@@ -233,80 +340,87 @@
                 </div>
                 <img src="./img/v2/sectel01_v2.png" alt="섹텔" class="char">
                 <div class="range">
-                    <p>학습할 계시록의<br/>범위를 선택해주세요!</p>
+                    <p>학습할 계시록의 <br/><span>시작점</span>를 선택하세요!</p>
                 </div>
             </div>
             <div class="bto_list choice_sub_key__wrap">
                 <div class="bto__title_area">
                     <p>1장</p>
-                    <img src="./img/v2/close.png" onclick="resetVerse()"/>
+                    <div class="back__arrow" onclick="resetVerse()">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#afafaf" stroke-width="2">
+                            <path d="M15 5L5 15" stroke-linecap="round"/>
+                            <path d="M5 5L15 15" stroke-linecap="round"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="bto_area">
-                    <div class="btn" data-verse="1">
-                        <p class="btn__text">1</p>
-                    </div>
-                    <div class="btn" data-verse="2">
-                        <p class="btn__text">2</p>
-                    </div>
-                    <div class="btn" data-verse="3">
-                        <p class="btn__text">3</p>
-                    </div>
-                    <div class="btn" data-verse="4">
-                        <p class="btn__text">4</p>
-                    </div>
-                    <div class="btn" data-verse="5">
-                        <p class="btn__text">5</p>
-                    </div>
-                    <div class="btn" data-verse="6">
-                        <p class="btn__text">6</p>
-                    </div>
-                    <div class="btn" data-verse="7">
-                        <p class="btn__text">7</p>
-                    </div>
-                    <div class="btn" data-verse="8">
-                        <p class="btn__text">8</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">9</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">10</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">11</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">12</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">13</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">14</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">15</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">16</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">17</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">18</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">19</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">20</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">21</p>
-                    </div>
-                    <div class="btn">
-                        <p class="btn__text">22</p>
+                    <div class="bto_area__wrap">
+                        <div class="btn" data-verse="1">
+                            <p class="btn__text">1</p>
+                        </div>
+                        <div class="btn" data-verse="2">
+                            <p class="btn__text">2</p>
+                        </div>
+                        <div class="btn" data-verse="3">
+                            <p class="btn__text">3</p>
+                        </div>
+                        <div class="btn" data-verse="4">
+                            <p class="btn__text">4</p>
+                        </div>
+                        <div class="btn" data-verse="5">
+                            <p class="btn__text">5</p>
+                        </div>
+                        <div class="btn" data-verse="6">
+                            <p class="btn__text">6</p>
+                        </div>
+                        <div class="btn" data-verse="7">
+                            <p class="btn__text">7</p>
+                        </div>
+                        <div class="btn" data-verse="8">
+                            <p class="btn__text">8</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">9</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">10</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">11</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">12</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">13</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">14</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">15</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">16</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">17</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">18</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">19</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">20</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">21</p>
+                        </div>
+                        <div class="btn">
+                            <p class="btn__text">22</p>
+                        </div>
                     </div>
                 </div> 
                 <div class="select_btn" data-next_step="4" onclick="onSeleectRange(this)"><p>선택 했어요!</p></div>
@@ -349,15 +463,15 @@
         <div id="level_one_section" class="game_section off">
             <div class="game_card_area">
                 <div class="game_card_label">Lorem Ipsum</div>
-                <div class="game_card" id="lyrics-display"></div>
+                <div class="game_card thin-scrollbar" id="lyrics-display"></div>
                 <div class="game_card_basket_line"></div>
-                <div class="game_card_basket" id="chips-display"></div>
+                <div class="game_card_basket thin-scrollbar" id="chips-display"></div>
                 <div class="game_card_basket fail" id="fail-display">
                     <div class="img_character">
                         <img src="./img/v2/one_sad_char.png" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                     <div class="img_chat">
-                        <img src="./img/v2/bubble_v1.png" style="width: 100%; height: auto; object-fit: cover;"/>
+                        <img src="./img/v2/bubble_v1.svg" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                 </div>
                 <div class="game_card_basket success" id="success-display">
@@ -365,7 +479,7 @@
                         <img src="./img/v2/one_good_char.png" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                     <div class="img_chat">
-                        <img src="./img/v2/bubble.png" style="width: 100%; height: auto; object-fit: cover;"/>
+                        <img src="./img/v2/bubble.svg" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                 </div>
             </div>
@@ -385,21 +499,21 @@
             <div class="game_card_area">
                 <div class="game_card_label">Lorem Ipsum</div>
                 <div class="game_card_btn on game_card_btn__reset">
-                    <p style="font-weight: 600; font-size: 14px;">전체 지우기</p>
+                    <p>전체 지우기</p>
                 </div>
                 <div class="game_card_btn error game_hint_open">
-                    <p style="font-weight: 600; font-size: 14px;">정답 보기</p>
+                    <p>정답 보기</p>
                 </div>
-                <div class="game_card" id="two-lyrics-display">
+                <div class="game_card thin-scrollbar" id="two-lyrics-display">
                     <div class="game_card_inner"></div>
                 </div>
-                <div class="game_card_basket on" id="two-chips-display"></div>
+                <div class="game_card_basket on thin-scrollbar" id="two-chips-display"></div>
                 <div class="game_card_basket fail" id="two-fail-display">
                     <div class="img_character">
                         <img src="./img/v2/two_sad_char.png" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                     <div class="img_chat">
-                        <img src="./img/v2/bubble_v3.png" style="width: 100%; height: auto; object-fit: cover;"/>
+                        <img src="./img/v2/bubble_v3.svg" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                 </div>
                 <div class="game_card_hint">
@@ -422,7 +536,7 @@
                         <img src="./img/v2/two_good_char.png" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                     <div class="img_chat">
-                        <img src="./img/v2/bubble_v2.png" style="width: 100%; height: auto; object-fit: cover;"/>
+                        <img src="./img/v2/bubble_v2.svg" style="width: 100%; height: auto; object-fit: cover;"/>
                     </div>
                 </div>
             </div>
@@ -446,7 +560,7 @@
                 </div>
                 <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
                     <div class="game_card" id="three-lyrics-display">
-                        <textarea id="three_typing_area" style="padding: 1rem; border: none; background-color: transparent; resize: none; width: 100%; height: 100%;" placeholder="전체 구절을 입력해주세요"></textarea>
+                        <textarea id="three_typing_area" style="border: none; background-color: transparent; resize: none; width: 100%; height: 245px" placeholder="전체 구절을 입력해주세요"></textarea>
                         <div class="three-fail-display__inner">
 
                         </div>
@@ -456,7 +570,7 @@
                             <img src="./img/v2/three_sad_char.png" style="width: 100%; height: auto; object-fit: cover;"/>
                         </div>
                         <div class="img_chat">
-                            <img src="./img/v2/bubble_v3.png" style="width: 100%; height: auto; object-fit: cover;"/>
+                            <img src="./img/v2/bubble_v3.svg" style="width: 100%; height: auto; object-fit: cover;"/>
                         </div>
                     </div>
                     <div class="game_card_hint">
@@ -481,7 +595,7 @@
                     <img src="./img/v2/three_good_char.png" style="width: 100%; height: auto; object-fit: cover;"/>
                 </div>
                 <div class="img_chat">
-                    <img src="./img/v2/three_good.png" style="width: 248px; height: auto; object-fit: cover;"/>
+                    <img src="./img/v2/three_good.svg" style="width: 248px; height: auto; object-fit: cover;"/>
                 </div>
             </div>
             <div class="bottom_btn_area" id="three-bottom_btn_area">
@@ -489,10 +603,10 @@
                     <h3 class="bottom_btn_area__txt">완성 했어요!!</h3>
                 </div>
                 <div class="bottom_btn_area__inner fail" data-theme="retry">
-                    <h3 class="bottom_btn_area__txt">다시 배치해보기 &gt;</h3>
+                    <h3 class="bottom_btn_area__txt">다시 풀어보기</h3>
                 </div>
                 <div class="bottom_btn_area__inner success" data-theme="success">
-                    <h3 class="bottom_btn_area__txt">다음 단계로 넘어가기 &gt;</h3>
+                    <h3 class="bottom_btn_area__txt">다음 단계로 넘어가기</h3>
                 </div>
             </div>
         </div>
@@ -508,12 +622,12 @@
                     <div class="choice_sub_key_back__btn" id="again_chapter" data-next_step="3" onclick="goto_range(this)">
                         <p class="choice_sub_key_back__btn__text" style="font-size: 16px;">구절 선택</p>
                     </div>
-                    <div class="choice_sub_key_back__btn_v2" id="finaly_btn_list">
+                    <div class="choice_sub_key_back__btn_v2" id="finaly_btn_list" data-next_step="1" onclick="goto_range(this)">
                         <p class="choice_sub_key_back__btn__text" style="font-size: 16px;">처음으로</p>
                     </div>
                 </div>
             </div>
-            <div id="finish_video" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;">
+            <div id="finish_video" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display:none;">
                 <video src="./img/finish.mp4" muted loop style="width: 100%; height: 100%; object-fit: cover;"/>
             </div>
         </div>
@@ -533,7 +647,7 @@
     document.querySelector(".rang_switch").addEventListener('click',function(e){
         let targetEl = e.target.closest('.rang_switch');
         targetEl.classList.toggle('off');
-        game.selected_range = !targetEl.classList.contains('off');
+        game.selected_range = targetEl.classList.contains('off');
         document.querySelector('#step-3 .bto_area').querySelectorAll('.btn').forEach(el=>{
             el.classList.remove('on');
         })
@@ -541,10 +655,10 @@
       
         if(game.selected_range){
             document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장(범위 선택)`;
-            document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>시작점을 선택해주세요!</p>`;
+            document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의 <br><span>시작점</span>을 선택하세요!</p>`;
         }else{
             document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장`;
-            document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>구절을 선택해주세요!</p>`
+            document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의 <br><span>구절</span>을 선택하세요!</p>`
         }
     })
 
@@ -625,6 +739,19 @@
             { text: "볼찌어다 내가 문밖에 서서 두드리노니 누구든지 내 음성을 듣고 문을 열면 내가 그에게로 들어가 그로 더불어 먹고 그는 나로 더불어 먹으리라" }, // idx 19 (20절)
             { text: "이기는 그에게는 내가 내 보좌에 함께 앉게 하여주기를 내가 이기고 아버지 보좌에 함께 앉은 것과 같이 하리라" },
             { text: "귀 있는 자는 성령이 교회들에게 하시는 말씀을 들을찌어다" } // idx 21 (22절)
+        ],
+          [
+            { text: "이 일 후에 내가 보니 하늘에 열린 문이 있는데 내가 들은 바 처음에 내게 말하던 나팔 소리 같은 그 음성이 가로되 이리로 올라오라 이 후에 마땅히 될 일을 내가 네게 보이리라 하시더라"},
+            { text: "내가 곧 성령에 감동하였더니 보라 하늘에 보좌를 베풀었고 그 보좌 위에 앉으신 이가 있는데"},
+            { text: "앉으신 이의 모양이 벽옥과 홍보석 같고 또 무지개가 있어 보좌에 둘렸는데 그 모양이 녹보석 같더라"},
+            { text: "또 보좌에 둘려 이십사 보좌들이 있고 그 보좌들 위에 이십사 장로들이 흰 옷을 입고 머리에 금 면류관을 쓰고 앉았더라"},
+            { text: "보좌로부터 번개와 음성과 뇌성이 나고 보좌 앞에 일곱 등불 켠 것이 있으니 이는 하나님의 일곱 영이라"},
+            { text: "보좌 앞에 수정과 같은 유리바다가 있고 보좌 가운데와 보좌 주위에 네 생물이 있는데 앞뒤에 눈이 가득하더라"},
+            { text: "그 첫째 생물은 사자 같고 그 둘째 생물은 송아지 같고 그 셋째 생물은 얼굴이 사람 같고 그 넷째 생물은 날아가는 독수리 같은데"},
+            { text: "네 생물이 각각 여섯 날개가 있고 그 안과 주위에 눈이 가득하더라 그들이 밤낮 쉬지 않고 이르기를 거룩하다 거룩하다 거룩하다 주 하나님 곧 전능하신 이여 전에도 계셨고 이제도 계시고 장차 오실 자라 하고"},
+            { text: "그 생물들이 영광과 존귀와 감사를 보좌에 앉으사 세세토록 사시는 이에게 돌릴 때에"},
+            { text: "이십사 장로들이 보좌에 앉으신 이 앞에 엎드려 세세토록 사시는 이에게 경배하고 자기의 면류관을 보좌 앞에 던지며 가로되"},
+            { text: "우리 주 하나님이여 영광과 존귀와 능력을 받으시는 것이 합당하오니 주께서 만물을 지으신지라 만물이 주의 뜻대로 있었고 또 지으심을 받았나이다 하더라"},
         ],
         [
             { text: "내가 보매 보좌에 앉으신 이의 오른손에 책이 있으니 안팎으로 썼고 일곱 인으로 봉하였더라" }, // 1절
@@ -989,6 +1116,13 @@
         document.querySelector('.game_gaze_bar__progress_bar').style.width = (percentage-7)+'%';
     }
     function resetVerse(){
+        if(game.selected_range){
+            document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장(범위 선택)`;
+            document.querySelector('#step-3 .top_area .range > p').innerHTML = "학습할 계시록의 <br/><span>시작점</span>을 선택하세요!";
+        }else{
+            document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장`;
+        }
+        document.querySelector('#step-3 .select_btn').classList.remove('on');
         document.querySelector('#step-3 .bto_area').querySelectorAll('.btn').forEach(el=>{
             el.classList.remove('on');
         })
@@ -1070,8 +1204,7 @@
         }
 
         verse(){
-            let percentage = Math.ceil(((this.currentPage+1) / game.range.length) * 100) >= 100 ? 100 : Math.ceil(((this.currentPage+1) / game.range.length) * 100);
-            fill_progress_bard(percentage)
+
             document.getElementById('level_one_section').querySelector(".game_card_label").textContent = `요한계시록 ${game.chapter}장 ${game.range[this.currentPage]}절`;
         }
 
@@ -1274,7 +1407,7 @@
             document.querySelector(".game_gaze_bar__progress_circle").querySelector('.finish').style.display = 'block';
 
             document.querySelector("#finaly_common_section").classList.add('on');
-            document.querySelector("#finish_video").style.display = 'block';
+            document.querySelector("#finish_video").style.display = 'none';
             document.querySelector("#finish_video").querySelector('video').play();
             setTimeout(() => {
                 document.querySelector("#finish_video").style.display = 'none';
@@ -1310,6 +1443,8 @@
             if(all_correct) {
                 this.state.fail = false;
                 this.state.success = true;
+                let percentage = Math.ceil(((this.currentPage+1) / game.range.length) * 100) >= 100 ? 100 : Math.ceil(((this.currentPage+1) / game.range.length) * 100);
+                fill_progress_bard(percentage)
             }else{
                 this.state.success = false;
                 this.state.fail = true;
@@ -1371,6 +1506,7 @@
                 ]
             ];
         }
+
         currentPageReset(){
             this.currentPage = 0;
         }
@@ -1378,7 +1514,6 @@
             document.querySelectorAll('.game_gaze_bar__area').forEach(el=>{
                 el.classList.add('on');
             })
-            this.currentPage = 0;
             this.hide_game_section();
             document.getElementById("level_two_section").classList.remove('off');
             let chapter = parseInt(game.chapter) -1;
@@ -1411,8 +1546,8 @@
                 .map((item, idx) => item.choice ? idx : null)
                 .filter(idx => idx !== null);
 
-            // this.targetIndices = choiceIndices.slice(0,3);
             this.targetIndices = choiceIndices;
+            // this.targetIndices = choiceIndices.slice(0,1);
             this.filledWords = []; // 초기화
             this.verse();  
             this.renderLyrics();
@@ -1443,8 +1578,6 @@
             })
         }
         verse(){
-            let percentage = Math.ceil(((this.currentPage+1) / game.range.length) * 100) >= 100 ? 100 : Math.ceil(((this.currentPage+1) / game.range.length) * 100);
-            fill_progress_bard(percentage)
             document.getElementById('level_two_section').querySelector(".game_card_label").textContent = `계시록 ${game.chapter}장 ${game.range[this.currentPage]}절`;
         }
 
@@ -1624,6 +1757,9 @@
 
                 document.querySelector('#two-chips-display').classList.remove('on');
                 document.querySelector('#two-success-display').classList.add('on');
+                let percentage = Math.ceil(((this.currentPage+1) / game.range.length) * 100) >= 100 ? 100 : Math.ceil(((this.currentPage+1) / game.range.length) * 100);
+                fill_progress_bard(percentage);
+                document.querySelector("#level_two_section .game_card_btn__reset").classList.remove('on');
             } else {
                 document.getElementById('two-bottom_btn_area').classList.add('fail');
                 document.getElementById('two-bottom_btn_area').classList.remove('success');
@@ -1693,12 +1829,12 @@
             document.querySelector(".game_gaze_bar__progress_circle").querySelector('.finish').style.display = 'block';
 
             document.querySelector("#finaly_common_section").classList.add('on');
-            document.querySelector("#finish_video").style.display = 'block';
-            document.querySelector("#finish_video").querySelector('video').play();
-            setTimeout(() => {
-                document.querySelector("#finish_video").style.display = 'none';
-                document.querySelector("#finish_video").querySelector('video').pause();
-            }, 560);
+            // document.querySelector("#finish_video").style.display = 'block';
+            // document.querySelector("#finish_video").querySelector('video').play();
+            // setTimeout(() => {
+            //     document.querySelector("#finish_video").style.display = 'none';
+            //     document.querySelector("#finish_video").querySelector('video').pause();
+            // }, 560);
         }
 
         hide_game_section() {
@@ -1720,6 +1856,8 @@
             this.currentPage = 0;
         }
         init() {
+            fill_progress_bard(0)
+            document.getElementById('level_three_section').querySelector('.game_hint_open').classList.add('on');
             let simpletData = [];
             let range = [...game.range];
             range.sort((a,b)=>a-b);
@@ -1762,8 +1900,6 @@
             this.bindEvents();  
         }
         verse(){
-            let percentage = Math.ceil(((this.currentPage+1) / game.range.length) * 100) >= 100 ? 100 : Math.ceil(((this.currentPage+1) / game.range.length) * 100);
-            fill_progress_bard(percentage)
             document.getElementById('level_three_section').querySelector(".game_card_label").textContent = `계시록 ${game.chapter}장 ${game.range[this.currentPage]}절`;
         }
         bindEvents(){
@@ -1849,6 +1985,7 @@
             }).join(' '); // 기존 문장의 띄어쓰기 간격을 유지하기 위해 공백으로 합침
 
 
+            console.log(all_correct);
             if (all_correct) {
                 document.querySelector("#level_three_section").classList.remove('failed')
                 document.querySelector("#level_three_section").classList.add('success');
@@ -1859,6 +1996,10 @@
                 document.querySelector('.three-fail-display__inner').style.display = 'none';
                 document.querySelector("#three_typing_area").style.display = 'block';
                 document.getElementById('three-success-display').classList.add('on');
+                document.getElementById('level_three_section').querySelector('.game_hint_open').classList.remove('on');
+                
+                let percentage = Math.ceil(((this.currentPage+1) / game.range.length) * 100) >= 100 ? 100 : Math.ceil(((this.currentPage+1) / game.range.length) * 100);
+                fill_progress_bard(percentage)
             } else {
                 document.querySelector("#level_three_section").classList.add('failed')
                 document.querySelector("#level_three_section").classList.remove('success');
@@ -1884,6 +2025,7 @@
 
             document.querySelector("#three_typing_area").style.display = 'block';
             document.querySelector("#three_typing_area").value = "";
+            document.querySelector(".three-fail-display__inner").style.display= 'none';
         }
 
         next_round() {
@@ -1932,11 +2074,25 @@
     }
     
     function onSeleectRange(e){
-        if(game.selected_range && game.range.length < 2){
+        document.querySelectorAll('.game_section').forEach(el=>{
+            el.classList.remove('success');
+            el.classList.remove('failed');
+        })
+        document.querySelector("#fail-display").classList.remove('on');
+        document.querySelector("#two-fail-display").classList.remove('on');
+        document.querySelector("#three-fail-display").classList.remove('on');
+        document.querySelector("#success-display").classList.remove('on');
+        document.querySelector("#two-success-display").classList.remove('on');
+        document.querySelector("#three-success-display").classList.remove('on');
+        document.querySelector("#one-bottom_btn_area").classList.remove('success');
+       
+
+        let btn = e.closest('.select_btn');
+        if((game.selected_range && !btn.classList.contains('on')) || (game.selected_range && game.range.length < 2)){
             alert('성경 구절을 2개 이상 선택해주세요');
             return false;
         }
-        if(game.range.length == 0){
+        if((!game.selected_range && !btn.classList.contains('on')) || game.range.length == 0){
             alert('성경 구절을 1개 이상 선택해주세요');
             return false;
         }
@@ -1945,6 +2101,9 @@
         let nextStep = e.dataset.next_step;
         moveToStep(nextStep);
 
+        fill_progress_bard(7);
+        console.log(123);
+        document.querySelector("#finaly_common_section").classList.remove('on');
         if(game.level == 1){
             blankFiller.init()
         }else if(game.level == 2){
@@ -1960,12 +2119,15 @@
         document.querySelector('#step-3').querySelector('.bto__title_area>p').innerHTML = `요한계시록 ${book}장(범위 선택)`
         let nextStep = e.dataset.next_step;
         setTimeout(() => {
+             game.range = [];
+            game.range_end = 0;
+            game.range_start = 0;
             moveToStep(nextStep, book);
         }, 500);
         let total_verse = bibleObj[book-1].length
-        document.querySelector("#step-3").querySelector('.bto_area').innerHTML = "";
+        document.querySelector("#step-3").querySelector('.bto_area').querySelector('.bto_area__wrap').innerHTML = "";
         for(let i=1; i<=total_verse; i++){
-            document.querySelector("#step-3").querySelector('.bto_area').innerHTML += `<button class="btn" data-verse="${i}">${i}</button>`;
+            document.querySelector("#step-3").querySelector('.bto_area').querySelector('.bto_area__wrap').innerHTML += `<button class="btn" data-verse="${i}">${i}</button>`;
         }
     }
 
@@ -1997,7 +2159,6 @@
      * 실제 화면 전환 로직
      */
     function renderStep(stepNum) {
-        console.log(stepNum);
         if(stepNum){
             document.querySelectorAll('.img_area__char').forEach(el=>{
                 el.style.display = 'none';
@@ -2068,8 +2229,7 @@
         renderStep(initialStep);
     };
 
-
-    document.querySelector("#step-3 .bto_area").addEventListener('click', function(e) {
+    document.querySelector("#step-3 .bto_area").querySelector('.bto_area__wrap').addEventListener('click', function(e) {
         // 1. 클릭된 요소가 .choice_sub_key인지, 혹은 그 자식인지 확인
         const key = e.target.closest('.btn');
         if (!key) return; // 엉뚱한 곳을 클릭하면 무시
@@ -2080,7 +2240,7 @@
        
         if(!game.selected_range){
             key.classList.toggle('on');
-            document.querySelector('#step-3').querySelector('.bto_area').querySelectorAll('.btn').forEach(k => {
+            document.querySelector('#step-3').querySelector('.bto_area').querySelector('.bto_area__wrap').querySelectorAll('.btn').forEach(k => {
                 if(k.classList.contains('on')) {
                     exist_on = true;
                     verse_range.push(k.dataset.verse);
@@ -2091,7 +2251,7 @@
 
             if(parseInt(game.range_start) == 0 && parseInt(game.range_end) == 0){
                 game.range_start = parseInt(key.dataset.verse);
-                document.querySelector('#step-3').querySelector('.bto_area').querySelectorAll('.btn').forEach(k => {
+                document.querySelector('#step-3').querySelector('.bto_area').querySelector('.bto_area__wrap').querySelectorAll('.btn').forEach(k => {
                     k.classList.remove('on');
                 })
             }else if(parseInt(game.range_start) != 0 && parseInt(game.range_end) == 0){
@@ -2112,7 +2272,7 @@
             if(parseInt(game.range_start) != 0 && parseInt(game.range_end) != 0){
                 exist_on = true;
                 verse_range = [];
-                document.querySelector('#step-3 .bto_area').querySelectorAll('.btn').forEach(k => {
+                document.querySelector('#step-3 .bto_area').querySelector('.bto_area__wrap').querySelectorAll('.btn').forEach(k => {
                     k.classList.remove('on');
                 })
 
@@ -2125,7 +2285,7 @@
                     verse_range.push(parseInt(i));
                 }
 
-                document.querySelector('#step-3 .bto_area').querySelectorAll('.btn').forEach(k => {
+                document.querySelector('#step-3 .bto_area').querySelector('.bto_area__wrap').querySelectorAll('.btn').forEach(k => {
                     for(let el of verse_range){
                         if(k.dataset.verse == el){
                             k.classList.add('on');
@@ -2137,14 +2297,14 @@
             console.log(game.range_start, game.range_end);
             if(parseInt(game.range_start) == 0 && parseInt(game.range_end) == 0 ){
                 document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장`;
-                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>시작점을 선택해주세요!</p>`;
+                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의 <br><span>시작점</span>을 선택하세요!</p>`;
             }
             if(parseInt(game.range_start) >0 && parseInt(game.range_end) == 0){
                 document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장(${game.range_start}절~)`;
-                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>종료점을 선택해주세요!</p>`;
+                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의 <br><span>종료점</span>을 선택하세요!</p>`;
             }else if(parseInt(game.range_start) > 0 && parseInt(game.range_end)>0){
                 document.querySelector(".bto__title_area>p").innerHTML = `요한계시록 ${game.chapter}장(${game.range_start}절~${game.range_end}절)`;
-                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의<br>범위 선택완료!</p>`;
+                document.querySelector('#step-3').querySelector('.range').innerHTML = `<p>학습할 계시록의 <br><span>범위</span> 선택완료!</p>`;
             }
         }
 
@@ -2159,6 +2319,62 @@
 
     function game_range_setting(arr){
         game.range = arr;
+    }
+  </script>
+
+  <script>
+    if(false){
+        const btoArea = document.querySelector('#step-2 .bto_area');
+        const buttons = btoArea.querySelectorAll('.btn');
+
+        function reLayout() {
+            // 1. 부모 요소의 스타일 정보 가져오기
+            const style = window.getComputedStyle(btoArea);
+            const paddingLeft = parseFloat(style.paddingLeft);
+            const paddingRight = parseFloat(style.paddingRight);
+
+            // 2. 패딩이 제외된 실제 가용 너비 계산
+            const containerWidth = btoArea.clientWidth - paddingLeft - paddingRight;
+
+            const btnWidth = 60;   // 버튼 고정 너비
+            let minGap = 17.6;   // 설정하고 싶은 최소 간격
+
+                    // 1. 현재 너비에서 한 줄에 배치 가능한 최대 개수(N) 계산
+            // 공식: (부모너비 + 간격) / (버튼너비 + 간격)
+            const itemsPerRow = Math.floor((containerWidth + minGap) / (btnWidth + minGap));
+            let totalGap = containerWidth - (btnWidth * itemsPerRow);
+            // minGap = totalGap / (itemsPerRow-1)
+            console.log(containerWidth);
+            console.log((btnWidth * itemsPerRow))
+            let perGap = (containerWidth - (btnWidth * itemsPerRow)) / (itemsPerRow - 1);
+            console.log(perGap);
+            minGap = Math.floor(perGap)
+            
+            
+
+            // 2. 버튼들을 순회하며 마진 적용
+            buttons.forEach((btn, index) => {
+                // 기본적으로 오른쪽과 아래에 여백 부여
+                btn.style.marginRight = `${minGap}px`;
+                btn.style.marginBottom = `${minGap}px`;
+
+                // 3. 계산된 최대 개수(itemsPerRow)의 배수 번째 버튼은 마진을 0으로 설정
+                // 즉, 해당 행의 가장 오른쪽 버튼을 감지하여 줄바꿈 위치를 정렬
+                if ((index + 1) % itemsPerRow === 0) {
+                    btn.style.marginRight = '0';
+                }
+            });
+        }
+
+        // 부모 요소 크기 변화 감지 (가변 너비 대응)
+        const resizeObserver = new ResizeObserver(() => {
+            reLayout();
+        });
+
+        resizeObserver.observe(btoArea);
+
+        // 초기 실행
+        reLayout();
     }
   </script>
 </body>

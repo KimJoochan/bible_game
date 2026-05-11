@@ -9,8 +9,8 @@
         left: 0;
         top: -40px;
         z-index: -1;
-        background-color: #2FABFF;
-        border-radius: 8px;
+        background-color: #1CB0F6;
+        border-radius: 12px;
         font-size: 14px;
         font-weight: 600;
         min-width: 100px;
@@ -23,6 +23,9 @@
     #level_two_section .game_card_btn{
         position: absolute; top: -40px; right: 0; width: 83px; height: 36px; border: 2px solid #E5E5E5; border-radius: 8px; box-shadow: 0px 2px 0px 0px #E5E5E5; display: flex; align-items: center; justify-content: center;
         display: none;
+    }
+    #level_two_section .game_card_btn p{
+        font-weight: 600; font-size: 14px;
     }
 
     #level_two_section .game_card_btn.error.active{
@@ -38,7 +41,7 @@
 
     #level_two_section .game_card{
         width:100%; 
-        background-color: #F5F5F5; 
+        background: #FEFEFE;
         border-radius: 16px;
         border-top-left-radius: 0;
         padding: 10px;
@@ -48,8 +51,10 @@
         position: relative;
         z-index: 2;
         max-height: 300px;
-        overflow-y: auto;
+        overflow-y: scroll;
         overflow-x: hidden;
+        box-shadow: 0px 10px 0px 0px #BBEAFD;
+        border: 2px solid #E5E5E5;
     }
 
     #level_two_section .game_card_inner{
@@ -61,8 +66,12 @@
         padding: 10px 0;
         column-gap: 0;
     }
+    #two-lyrics-display.success .game_card_inner{
+        column-gap: 6px;
+    }
+
     #two-lyrics-display.wrong .game_card_inner{
-        column-gap: 10px;
+        column-gap: 6px;
     }
     #level_two_section .game_card_basket_line{
         position: absolute;
@@ -90,7 +99,7 @@
         width: 100%;
         height: 0;
         overflow: hidden;
-        border-radius: 8px;
+         border-radius: 16px;
         transform: translateY(0);
         transition: transform 0.3s ease, opacity 0.3s ease;
         opacity: 0;
@@ -103,7 +112,8 @@
         visibility: visible;
         max-height: 230px;
         overflow-y: auto;
-        padding: 15px;
+        padding: 30px 10px;
+        padding-top: 40px;
         position: relative;
     }
     
@@ -140,15 +150,20 @@
     #level_two_section.success .game_card{
         background-color: #F6FFD0;
         border: 2px solid #B1D32C;
+        box-shadow: 0px 10px 0px 0px #8DC04540;
     }
     #level_two_section.success .game_card_basket{
         background-color: #D4E980;
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        max-height: 330px;
     }
     #level_two_section.success .game_card_label{
         background-color: #B1D32C;
         color: #333;
+        border: 2px solid #B1D32C;
     }
 
     #level_two_section.success .game_card .text.filled{
@@ -166,7 +181,7 @@
         box-shadow: 0px 10px 0px 0px #FF9EAB66;
         border: 4px solid #FF9EAB;
         column-gap: 10px;
-        padding: 0 10px;
+        padding: 10px;
     }
     #level_two_section.failed .game_card_basket{
         background-color: #FFCFD5;
@@ -174,8 +189,7 @@
         border-bottom-right-radius: 16px;
     }
     #level_two_section .bottom_btn_area__inner.fail{
-        background-color: #FF8C7F;
-        border: 2px solid #FF8578;
+        background-color: #FF9EAB;
         box-shadow: 0px 4px 0px 0px #D46E7C;
         display: none;
     }
@@ -212,7 +226,7 @@
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        top: 100px;
+        margin-top: 100px;
     }
     #level_two_section.success .img_chat{
         position: absolute;
@@ -238,18 +252,18 @@
     #level_two_section .chip {
         width: auto;
         height: 30px;
-        line-height: 1;
         border-radius: 8px;
-        padding: 8px 10px;
+        padding: 4px 10px;
         box-shadow: 0px 2px 0px 0px #E5E5E5;
         font-size: 14px;
         color: #111;
         font-weight: 500;
         border: 1.5px solid #E5E5E5;
         background-color: #fff;
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* 부드러운 가속도 */
+        /* transition: all 0.4s cubic-bezier(0.1?65, 0.84, 0.44, 1); 부드러운 가속도 */
         opacity: 1;
         transform: scale(1);
+        box-shadow: 0px 2px 0px 0px #E5E5E5;
     }
 
     /* 새로 나타날 때의 효과 (선택 사항) */
@@ -262,9 +276,12 @@
     }
 
     #level_two_section .chip:hover {
-        transform: translateY(-2px);
-        border-color: #8A9A5B;
-        color: #8A9A5B;
+        position: relative;
+        top: 3px;
+        border: 2px solid #1CB0F6;
+        line-height: 20px;
+        color: #0065A2;
+        box-shadow: none;
     }
     /* 사용된 칩은 숨김 처리 */
     #level_two_section .chip.hidden {
@@ -313,7 +330,12 @@
         display: none;
     }
     #level_two_section .bottom_btn_area.success .bottom_btn_area__inner.success{
-        display: block;
+        display: flex;
+    }
+    #level_two_section .bottom_btn_area.success .bottom_btn_area__inner.success:active{
+        position: relative;
+        top: 3px;
+        cursor: pointer;
     }
 
     #level_two_section .bottom_btn_area__inner.success .bottom_btn_area__txt{
@@ -321,13 +343,16 @@
         color: #111;
     }
     #level_two_section .bottom_btn_area__inner.success{
-        border: 2px solid #8DC045;
         background-color: #B1D32C;
+        box-shadow: 0px 4px 0px 0px #8DC045;
         display: none;
+        height: 54px;
+        align-items: center;
+        cursor: pointer;
     }
     #level_two_section .bottom_btn_area__inner.success:active{
         background: #8DC045;
-        border: 2px solid #7aa73b;
+        /* border: 2px solid #7aa73b; */
         color: #fff;
     }
 
@@ -342,7 +367,7 @@
     }
     #level_two_section .blank {
         display: inline-flex;
-        min-width: 84px;
+        min-width: 88px;
         opacity: 1;
         border-radius: 6px;
         /* border: 2px solid #CFCFCF; */
@@ -359,8 +384,17 @@
         height: 1px;
         position: absolute;
         border-bottom: 2px solid #AFAFAF;
-        bottom: -5px;
+        bottom: -8px;
         left: -50%;
+    }
+    #level_two_section.success .blank{
+        pointer-events: none;
+    }
+    #level_two_section.success .blank::before{
+        border-bottom: 2px solid #AFAFAF33;
+    }
+    #level_two_section.failed .blank::before{
+        border-bottom: 2px solid #AFAFAF33;
     }
 
     #level_two_section .game_card_hint{
@@ -396,4 +430,54 @@
 
     #step-4 .img_area img.two{
         margin-top: 120px;
+    }
+
+
+    @media all and (min-width : 600px) {
+        #level_two_section .game_card_btn p{
+            font-size: 16px;
+        }
+        #level_two_section .game_card_label{
+            font-size: 16px;
+        }
+        #level_two_section .game_card .text{
+            font-size: 22px;
+            line-height: 44px;
+            height: 44px;
+        }
+        #level_two_section .chip{
+            height: 44px;
+            padding: 10px;
+            font-size: 22px;
+            line-height: 26px;
+        }
+        #level_two_section .bottom_btn_area__inner .bottom_btn_area__txt{
+            font-size: 24px;
+        }
+        #level_two_section .chip:hover {
+            line-height: 24px;
+        }
+        #level_two_section.success .img_chat{
+            width: 147px;
+        }
+        #level_two_section.success .img_character{
+            width: 167px;
+            top: 90px;
+        }
+        #level_two_section.failed .img_chat{
+            width: 166px;
+        }
+        #level_two_section .bottom_btn_area.fail .bottom_btn_area__inner{
+            height: 70px;
+            line-height: 52px !important;
+        }
+        #level_two_section .game_card_basket.fail.on{
+            min-height: 250px;
+        }
+        #level_two_section .game_card_basket.fail .img_character{
+            width: 140px;
+            top: 90px;
+        }
+
+     
     }

@@ -4,13 +4,41 @@
         position: relative;
     }
 
+    #three_typing_area {
+        /* 기본 스타일 */
+        outline: none;
+        resize: none; 
+        padding: 20px;
+        /* 입력하는 글자에 적용되는 폰트 */
+        font-family: 'Pretendard', sans-serif;
+        font-size: 18px;
+        line-height: 1.2;
+    }
+
+    /* ✅ placeholder에 프리텐다드 적용 */
+    #three_typing_area::placeholder {
+        font-family: 'Pretendard', sans-serif;
+        font-size: 18px;
+        color: #11111166; /* 회색 톤 (원하시는 색상으로 변경 가능) */
+        opacity: 1;      /* 파이어폭스 등에서 투명도가 들어가는 것 방지 */
+    }
+
+    /* 브라우저별 호환성을 위한 추가 (구형 브라우저 대응이 필요하다면) */
+    #three_typing_area::-webkit-input-placeholder { font-family: 'Pretendard', sans-serif; }
+    #three_typing_area::-ms-input-placeholder { font-family: 'Pretendard', sans-serif; }
+
+        /* 포커스될 때의 테두리를 아예 없애고 싶다면 border도 확인하세요 */
+     #three_typing_area:focus {
+        outline: none;
+    }
+
     #level_three_section .game_card_label{
         position: absolute;
         left: 0;
         top: -40px;
         z-index: -1;
-        background-color: #2FABFF;
-        border-radius: 8px;
+        background-color: #1CB0F6;
+        border-radius: 12px;
         font-size: 14px;
         font-weight: 600;
         min-width: 100px;
@@ -25,8 +53,16 @@
         display: none;
     }
 
+    #level_three_section .game_card_btn p{
+        font-weight: 600; font-size: 14px;
+    }
+
+    #level_three_section .game_card_btn:active{
+        top: -37px;
+    }
     #level_three_section .game_card_btn.active{
         background-color: #CBCCCC;
+        top: -37px;
     }
 
     #level_three_section .game_card_btn.on{
@@ -37,17 +73,16 @@
         width:100%; 
         background-color: #F5F5F5; 
         border-radius: 16px;
-        border-top-right-radius: 0;
         border-top-left-radius: 0;
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        padding: 10px;
-        padding-bottom: 30px;
-        padding-top: 30px;
         align-content: flex-start;
         position: relative;
         z-index: 2;
+        min-height: 220px;
+        border: 2px solid #1CB0F5;
+        box-shadow: 0px 4px 0px 0px #1CB0F5;
     }
     #level_three_section .game_card_basket_line{
         position: absolute;
@@ -116,6 +151,10 @@
         transform: translateX(-50%);
     }
 
+    #level_three_section .hint_text{
+        user-select: none;
+    }
+
     #level_three_section.success .game_card{
         background-color: #F6FFD0;
         border: 2px solid #B1D32C;
@@ -145,6 +184,7 @@
         background-color: #FFE7EA;
         box-shadow: 0px 10px 0px 0px #FF9EAB66;
         border: 4px solid #FF9EAB;
+        min-height: auto;
     }
     #level_three_section.failed .game_card_basket{
         background-color: #FFCFD5;
@@ -156,9 +196,20 @@
     }
     
     #level_three_section.failed .bottom_btn_area .bottom_btn_area__inner.fail{
-        background-color: #FF8C7F;
-        border: 2px solid #FF8578;
+        background-color: #FF9EAB;
         box-shadow: 0px 4px 0px 0px #D46E7C;
+    }
+
+    #level_three_section.failed .bottom_btn_area .bottom_btn_area__inner.fail>h3{
+        color: #111;
+    }
+    #level_three_section.success .bottom_btn_area.on .bottom_btn_area__inner.success>h3{
+        color: #111;
+    }
+
+    #level_three_section .bottom_btn_area__inner.fail:active{
+        position: relative;
+        top: 3px;
     }
 
     #level_three_section .bottom_btn_area .bottom_btn_area__inner.fail:active{
@@ -184,10 +235,10 @@
     }
     #level_three_section.success .img_chat{
         position: absolute;
-        width: 224px;
+        width: auto;
         left: 50%;
         transform: translateX(-50%);
-        top: 60px;
+        top: 50px;
     }
 
     #level_three_section.failed .img_chat{
@@ -287,7 +338,6 @@
         color: #111;
     }
     #level_three_section.success .bottom_btn_area.on .bottom_btn_area__inner.success{
-        border: 2px solid #8DC045;
         background-color: #B1D32C;
         box-shadow: 0px 4px 0px 0px #8DC045;
         display: block;
@@ -303,11 +353,20 @@
     }
 
     #level_three_section .bottom_btn_area.on .bottom_btn_area__inner{
+        transition: all 0.2s ease;
         background-color: #1CB0F6;
         box-shadow: 0px 4px 0px 0px #1899D6;
     }
+
+    #level_three_section .bottom_btn_area.on .bottom_btn_area__inner>h3{
+        color: #fff;
+    }
+    #level_three_section .bottom_btn_area.on .bottom_btn_area__inner:active{
+        position: relative;
+        top: 3px;
+    }
     #level_three_section .bottom_btn_area.on .bottom_btn_area__txt{
-        color: #FFFFFF;
+        color: #111;
         font-weight: 600;
         font-size: 18px;
     }
@@ -360,11 +419,17 @@
         padding: .5rem;
         display: flex;
         flex-wrap: wrap;
-        gap: 5px;
+        column-gap: 2.3px;
+        row-gap: 12px;
+        display: none;
+        padding: 24px 16px;
+        padding-bottom: 26px;
+        border-radius: 16px;
+        border-top-left-radius: 0;
     }
 
     #level_three_section .three-fail-display__inner span{
-        min-width: 12px;
+        min-width: 14px;
         /* padding: 3px; */
         /* border-radius: 5px; */
     }
@@ -372,19 +437,56 @@
         /* border: 2px solid #DF4A3A;
         background: #FF8578; */
         color: #FF0124;
-        /* border-bottom: 2px solid #DF4A3A; */
-        background-image: linear-gradient(45deg, 
-            #DF4A3A 25%, 
-            transparent 25%, 
-            transparent 50%, 
-            #DF4A3A 50%, 
-            #DF4A3A 75%, 
-            transparent 75%, 
-            transparent
-        );
+        border-bottom: 2px solid #DF4A3A;
         background-size: 4px 4px; /* 빗금의 촘촘한 정도 */
         background-repeat: repeat-x;
         background-position: 0 100%; /* 위치를 아래쪽으로 */
         background-size: 6px 4px;    /* 두께(높이) 조절 */
-        padding-bottom: 4px;         /* 텍스트와의 간격 확보 */
+    }
+    #level_three_section .three-fail-display__inner span{
+        font-size: 14px;
+    }
+    
+    @media all and (min-width : 600px) {
+        #level_three_section .game_card_label{
+            font-size: 16px;
+        }
+
+        #level_three_section .game_card_btn p{
+            font-size: 16px;
+        }
+        #three_typing_area{
+            font-size: 22px;
+        }
+
+        #three_typing_area::placeholder {
+            font-size: 22px;
+        }
+        #level_three_section .three-fail-display__inner span{
+            font-size: 22px;
+        }
+        #level_three_section .game_card_basket.fail .img_character{
+            width: 149px;
+            top: 100px;
+        }
+        #level_three_section.failed .img_chat{
+            width: 186px;
+        }
+        #level_three_section .game_card_basket.fail.on{
+            min-height: 250px;
+        }
+
+        #level_three_section .bottom_btn_area__inner .bottom_btn_area__txt{
+            font-size: 24px !important;
+        }
+
+        #level_three_section .bottom_btn_area__inner{
+            height: 70px;
+            line-height: 52px !important;
+        }
+        .game_card_hint__wrap{
+            max-width: unset !important;
+            width: 95% !important;
+            font-size: 24px;
+        }
     }

@@ -618,12 +618,12 @@
                     <img src="./img/v2/finish.png" style="width: 100%; height: auto; object-fit: cover;"/>
                     <div style="width: 220px; height: 25px; background-color: #E9F3FF; margin-top: -25px; border-radius: 50%;"></div>
                 </div>
-                <div style="width: 340px; display: flex; justify-content: space-between; gap: 10px; margin-top: 100px;">
+                <div class="bottom_btn_area">
                     <div class="choice_sub_key_back__btn" id="again_chapter" data-next_step="3" onclick="goto_range(this)">
-                        <p class="choice_sub_key_back__btn__text" style="font-size: 16px;">구절 선택</p>
+                        <p class="choice_sub_key_back__btn__text">구절 선택</p>
                     </div>
                     <div class="choice_sub_key_back__btn_v2" id="finaly_btn_list" data-next_step="1" onclick="goto_range(this)">
-                        <p class="choice_sub_key_back__btn__text" style="font-size: 16px;">처음으로</p>
+                        <p class="choice_sub_key_back__btn__text">처음으로</p>
                     </div>
                 </div>
             </div>
@@ -1113,7 +1113,7 @@
         ]
     ]
     function fill_progress_bard(percentage){
-        document.querySelector('.game_gaze_bar__progress_bar').style.width = (percentage-7)+'%';
+        document.querySelector('.game_gaze_bar__progress_bar').style.width = (percentage)+'%';
     }
     function resetVerse(){
         if(game.selected_range){
@@ -2084,8 +2084,9 @@
         document.querySelector("#success-display").classList.remove('on');
         document.querySelector("#two-success-display").classList.remove('on');
         document.querySelector("#three-success-display").classList.remove('on');
-        document.querySelector("#one-bottom_btn_area").classList.remove('success');
-       
+        document.querySelector("#one-bottom_btn_area").classList.remove('success', 'fail');
+        document.querySelector("#two-bottom_btn_area").classList.remove('success', 'fail');
+        document.querySelector("#three-bottom_btn_area").classList.remove('success', 'fail');
 
         let btn = e.closest('.select_btn');
         if((game.selected_range && !btn.classList.contains('on')) || (game.selected_range && game.range.length < 2)){

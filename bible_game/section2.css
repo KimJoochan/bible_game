@@ -260,6 +260,7 @@
         font-weight: 500;
         border: 1.5px solid #E5E5E5;
         background-color: #fff;
+        border: 2px solid transparent;
         /* transition: all 0.4s cubic-bezier(0.1?65, 0.84, 0.44, 1); 부드러운 가속도 */
         opacity: 1;
         transform: scale(1);
@@ -417,7 +418,9 @@
         background: #F6F7F7; 
         display: flex; 
         flex-direction: column; padding:1rem; 
-        align-items: center; border-radius: 8px; gap: .5rem;
+        align-items: center; 
+        align-items: flex-start;
+        border-radius: 8px; gap: .5rem;
         border: 2px solid #BFBFBF;
         box-shadow: 0px 4px 0px 0px #BFBFBF;
         margin: 0 auto;
@@ -450,6 +453,9 @@
             padding: 10px;
             font-size: 22px;
             line-height: 26px;
+            border: 1.5px solid #E5E5E5;
+            box-shadow: 0px 3px 0px 0px #E5E5E5;
+            border-radius: 10px;
         }
         #level_two_section .bottom_btn_area__inner .bottom_btn_area__txt{
             font-size: 24px;
@@ -479,5 +485,28 @@
             top: 90px;
         }
 
+        #level_two_section .game_card_btn{
+            width: 95px !important;
+        }
+
+
+        #level_two_section .bottom_btn_area__inner .bottom_btn_area__txt{
+            font-size: 24px !important;
+        }
+        #level_two_section .bottom_btn_area__inner.success{
+            line-height: 50px !important;
+        }
+        #level_two_section .bottom_btn_area__inner{
+            border-radius: 14px !important;
+        }
+        #level_two_section .bottom_btn_area .bottom_btn_area__inner{
+            height: 70px;
+            line-height: 52px !important;
+        }
+
+        #level_two_section .game_card_basket.on{
+            padding: 50px 25px;
+            padding-top: 60px;
+        }
      
     }

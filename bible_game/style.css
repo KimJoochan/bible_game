@@ -1,4 +1,10 @@
-    #step-1 .content-inner{
+#finaly_common_section .bottom_btn_area{
+    width: 340px; display: flex; justify-content: space-between; gap: 10px; margin-top: 100px;
+}
+#finaly_common_section .choice_sub_key_back__btn__text{
+    font-size: 16px;
+}
+#step-1 .content-inner{
         background-color: #BDEDFD;
         border-radius: 20px;
         padding: 20px;
@@ -289,6 +295,7 @@
             width : 220px;
             height : auto;
             margin : 0 auto;
+            margin-top: 15px;
         }
         #step-1 .image_area img{
             width : 100%;
@@ -353,6 +360,7 @@
             padding: 0 !important;
             margin : 0 auto;
             margin-top: 48px;
+            margin-bottom: 40px;
         }
     }
 
@@ -786,9 +794,18 @@
 
         #step-4 .bto_area .select_btn{
             height: 70px !important;
+            border-radius: 14px;
         }
         #step-4 .bto_list{
             max-width: 600px !important;
+        }
+
+        #level_one_section.success .game_card .text.filled{
+            padding: 0 15px;
+        }
+        
+        #level_one_section .bottom_btn_area__inner{
+            height: 70px !important;
         }
     }
 
@@ -832,7 +849,7 @@
         border-radius: 50%;
         position: absolute;
         top: 50%;
-        right: 0;
+        right: -5px;
         transform: translateY(-50%);
         z-index: 9;
     }
@@ -927,9 +944,16 @@
         height: 30px;
         line-height: 30px;
     }
+    #level_one_section .game_card .text.filled{
+        padding: 0 15px;
+    }
 
     #level_one_section .game_card .text.blank.active{
         border: 2px solid #1CB0F6;
+    }
+    #level_one_section .game_card{
+        padding-left: 26px;
+        padding-right: 26px;
     }
     #level_one_section .game_card_basket{
         background-color: #D7F4FE;
@@ -1298,6 +1322,7 @@
             font-size: 22px;
             line-height: 44px;
             height: 44px;
+            
         }
         #level_one_section .chip{
             height: 44px;
@@ -1306,17 +1331,23 @@
             line-height: 26px;
         }
         #level_one_section .bottom_btn_area__inner .bottom_btn_area__txt{
-            font-size: 24px;
+            font-size: 24px !important;
         }
         #level_one_section .chip:hover {
-            line-height: 24px;
+            line-height: 24px !important;
         }
         #level_one_section.success .img_chat{
-            width: 147px;
+            width: 147px !important;
+        }
+        #level_one_section .bottom_btn_area__inner.success{
+            line-height: 50px !important;
+        }
+        #level_one_section .bottom_btn_area__inner{
+            border-radius: 14px !important;
         }
         #level_one_section.success .img_character{
-            width: 167px;
-            top: 90px;
+            width: 167px !important;
+            top: 90px !important;
         }
         #level_one_section.failed .img_chat{
             width: 166px;
@@ -1331,5 +1362,21 @@
         #level_one_section .game_card_basket.fail .img_character{
             width: 140px;
             top: 90px;
+        }
+        #finaly_common_section .bottom_btn_area{
+            width: 100% !important;
+        }
+        .choice_sub_key_back__btn{
+            height: 70px !important;
+        }
+        .choice_sub_key_back__btn_v2{
+            height: 70px !important;
+            border-radius: 14px !important;
+        }
+        .choice_sub_key_back__btn{
+            border-radius: 14px !important;
+        }
+        #finaly_common_section .choice_sub_key_back__btn__text{
+            font-size: 24px !important;
         }
     }

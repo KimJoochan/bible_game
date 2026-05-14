@@ -9,6 +9,15 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <title>계시록 완전 정복</title>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- 2. type을 "text/babel"로 지정 -->
+    <script type="text/babel">
+    const greet = () => {
+        console.log("Hello Babel!");
+    };
+    greet();
+    </script>
   <style>
     /* 전체 스크롤바 크기 설정 (MUI처럼 얇게) */
     .thin-scrollbar::-webkit-scrollbar {
@@ -1408,7 +1417,7 @@
 
             document.querySelector("#finaly_common_section").classList.add('on');
             document.querySelector("#finish_video").style.display = 'none';
-            document.querySelector("#finish_video").querySelector('video').play();
+            // document.querySelector("#finish_video").querySelector('video').play();
             setTimeout(() => {
                 document.querySelector("#finish_video").style.display = 'none';
                 const video = document.querySelector("#finish_video").querySelector('video');
@@ -1829,6 +1838,7 @@
             document.querySelector(".game_gaze_bar__progress_circle").querySelector('.finish').style.display = 'block';
 
             document.querySelector("#finaly_common_section").classList.add('on');
+            document.querySelector("#finish_video").style.display = 'none';
             // document.querySelector("#finish_video").style.display = 'block';
             // document.querySelector("#finish_video").querySelector('video').play();
             // setTimeout(() => {
@@ -1985,7 +1995,6 @@
             }).join(' '); // 기존 문장의 띄어쓰기 간격을 유지하기 위해 공백으로 합침
 
 
-            console.log(all_correct);
             if (all_correct) {
                 document.querySelector("#level_three_section").classList.remove('failed')
                 document.querySelector("#level_three_section").classList.add('success');
@@ -2042,12 +2051,13 @@
         finaly_section_show() {
             this.currentPage = 0;
             document.querySelector("#finaly_common_section").classList.add('on');
-            document.querySelector("#finish_video").style.display = 'block';
-            document.querySelector("#finish_video").querySelector('video').play();
-            setTimeout(() => {
-                document.querySelector("#finish_video").style.display = 'none';
-                document.querySelector("#finish_video").querySelector('video').pause();
-            }, 560);
+            document.querySelector("#finish_video").style.display = 'none';
+            // document.querySelector("#finish_video").style.display = 'block';
+            // document.querySelector("#finish_video").querySelector('video').play();
+            // setTimeout(() => {
+            //     document.querySelector("#finish_video").style.display = 'none';
+            //     document.querySelector("#finish_video").querySelector('video').pause();
+            // }, 560);
         }
 
         hide_game_section() {
@@ -2087,6 +2097,9 @@
         document.querySelector("#one-bottom_btn_area").classList.remove('success', 'fail');
         document.querySelector("#two-bottom_btn_area").classList.remove('success', 'fail');
         document.querySelector("#three-bottom_btn_area").classList.remove('success', 'fail');
+        document.querySelector('.three-fail-display__inner').innerHTML = "";
+        document.querySelector('.three-fail-display__inner').style.display = 'none';
+        document.querySelector('#three_typing_area').style.display = 'block';
 
         let btn = e.closest('.select_btn');
         if((game.selected_range && !btn.classList.contains('on')) || (game.selected_range && game.range.length < 2)){

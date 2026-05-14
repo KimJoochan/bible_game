@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scanner & Token Sender</title>
+    <!-- QR 스캔 라이브러리 (jsQR 사용) -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; }
+        #canvas { width: 100%; max-width: 400px; border: 2px solid #333; border-radius: 8px; }
+        #result { margin-top: 20px; font-weight: bold; color: #007bff; }
+        .btn { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #fee500; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h2>QR 코드 스캐너</h2>
+    <p>QR을 스캔하면 보유 중인 토큰과 함께 이동합니다.</p>
+    
+    <!-- 카메라 화면을 그릴 캔버스 -->
+    <canvas id="canvas" hidden></canvas>
+    <div id="loadingMessage">🎥 카메라 준비 중...</div>
+    
+    <div id="result">스캔 대기 중...</div>
+
+    <script>
+        const video = document.createElement("video");
+        const canvasElement = document.getElementById("canvas");
+        const canvas = canvasElement.getContext("2d");
+        const loadingMessage = document.getElementById("loadingMessage");
+        const resultDiv = document.getElementById("result");
+
+        // 1. 임의의 카카오 토큰 (실제로는 로그인 후 저장된 값을 사용)
+        const MY_KAKAO_TOKEN = "KAKAOTALK_ACCESS_TOKEN_SAMPLE_12345";
+
+        // 2. 카메라 시작
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
+            video.srcObject = stream;
+            video.setAttribute("playsinline", true); // iOS 사용 설정
+            video.play();
+            requestAnimationFrame(tick);
+        });
+
+        function tick() {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                loadingMessage.hidden = true;
+                canvasElement.hidden = false;
+
+                canvasElement.height = video.videoHeight;
+                canvasElement.width = video.videoWidth;
+                canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+                
+                // 3. 현재 프레임에서 QR 코드 분석
+                const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "dontInvert",
+                });
+
+                if (code) {
+                    // QR 스캔 성공!
+                    drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+                    drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+                    drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+                    drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+
+                    resultDiv.innerText = "스캔 완료! 이동 중...";
+                    
+                    // 4. 스캔된 URL에 토큰을 붙여서 이동
+                    processRedirect(code.data);
+                    return; // 스캔 성공 시 반복 중단
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
+        async function processRedirect(scannedUrl) {
+            try {
+                // 1. 전송할 데이터 준비 (FormData 사용)
+                const formData = new FormData();
+                formData.append("target_url", scannedUrl); // QR에서 읽은 주소
+                formData.append("kakao_token", MY_KAKAO_TOKEN); // 보유 중인 카카오 토큰
+
+                resultDiv.innerText = "데이터 전송 중...";
+
+                // 2. 비동기 fetch 요청 (POST 방식)
+                // 실제 데이터를 받을 서버 API 주소를 입력하세요 (예: '/api/verify-token')
+                const response = await fetch("https://your-api-server.com/verify", {
+                    method: "POST",
+                    body: formData
+                });
+
+                // 3. 결과 수신 및 처리
+                if (response.ok) {
+                    const res = await response.json(); // 서버에서 JSON으로 응답한다고 가정
+                    
+                    console.log("서버 응답 데이터:", res);
+                    resultDiv.innerText = "처리 완료: " + (res.message || "성공");
+
+                    // 처리 성공 후 특정 페이지로 이동하거나 후속 작업 수행
+                    // if (res.success) location.href = "/success-page";
+                    
+                } else {
+                    throw new Error("서버 응답 오류: " + response.status);
+                }
+
+            } catch (e) {
+                console.error("전송 실패:", e);
+                resultDiv.innerText = "오류 발생: " + e.message;
+                
+                // 실패 시 다시 스캔을 시작하려면 tick 호출
+                setTimeout(() => {
+                    requestAnimationFrame(tick);
+                }, 2000);
+            }
+        }
+
+        function drawLine(begin, end, color) {
+            canvas.beginPath();
+            canvas.moveTo(begin.x, begin.y);
+            canvas.lineTo(end.x, end.y);
+            canvas.lineWidth = 4;
+            canvas.strokeStyle = color;
+            canvas.stroke();
+        }
+    </script>
+</body>
+</html>

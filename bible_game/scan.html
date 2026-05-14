@@ -91,6 +91,8 @@
                 });
 
                 // 3. 결과 수신 및 처리
+                location.href = scannedUrl;
+                return false
                 if (response.ok) {
                     const res = await response.json(); // 서버에서 JSON으로 응답한다고 가정
                     

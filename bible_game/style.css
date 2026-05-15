@@ -8,6 +8,7 @@
         background-color: #BDEDFD;
         border-radius: 20px;
         padding: 20px;
+        max-height: max-content;
     }
     #step-1 .title_area{
         text-align: center;
@@ -264,6 +265,10 @@
         text-align: center;
         line-height: 1;
         letter-spacing: -1.5px;
+    }
+
+    #step-1 .image_area img{
+        width : 50%;
     }
 
     @media all and (min-width : 670px) {
@@ -1378,5 +1383,47 @@
         }
         #finaly_common_section .choice_sub_key_back__btn__text{
             font-size: 24px !important;
+        }
+    }
+
+
+    @media all and (max-width: 400px) {
+        /* 모바일페이지의 경우 */
+        #step-2 .bto_area .btn{
+            margin-right: calc(calc(100% - 180px) / 2) !important;
+        }
+        #step-2 .bto_area .btn:nth-child(3n){
+            margin-right: 0 !important;
+        }
+        #step-2 .top_area .char{
+            display: none;
+        }
+        #step-2 .top_area .range{
+            left: 50%;
+            transform: translateX(-50%);
+            top: unset;
+            bottom: 15px;
+        }
+        #step-2 .bto_area .bto_area__wrap{
+            max-height: fit-content;
+        }
+        #step-3 .bto_area .btn{
+            margin-right: calc(calc(100% - (44px * 4)) / 3) !important;
+        }
+        #step-3 .bto_area .btn:nth-child(4n){
+            margin-right: 0 !important;
+        }
+        #step-3 .top_area .char{
+            display: none;
+        }
+        #step-3 .top_area .range{
+            left: 50%;
+            transform: translateX(-50%);
+            position: absolute;
+            top: unset;
+            bottom: 15px;
+        }
+        #step-3 .bto_list, #step-3 .content-inner{
+            max-height: fit-content;
         }
     }

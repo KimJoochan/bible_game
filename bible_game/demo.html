@@ -636,16 +636,16 @@
                     </div>
                 </div>
             </div>
-            <div id="finish_video" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display:none;">
+            <!-- <div id="finish_video" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display:none;">
                 <video src="./img/finish.mp4" muted loop style="width: 100%; height: 100%; object-fit: cover;"/>
-            </div>
+            </div> -->
         </div>
       </div>
     </section>
   </div>
   <script>
     const game = {
-        level: '2',
+        level: '1',
         chapter : 1,
         range : [1,2],
         selected_range : true,
@@ -1168,6 +1168,8 @@
             let chapter = parseInt(game.chapter) -1;
             let simpletData = [];
             let range = [...game.range];
+
+            
             range.sort((a,b)=>a-b);
             for(let idx of range){
                 let temp = [];
@@ -1416,15 +1418,15 @@
             document.querySelector(".game_gaze_bar__progress_circle").querySelector('.finish').style.display = 'block';
 
             document.querySelector("#finaly_common_section").classList.add('on');
-            document.querySelector("#finish_video").style.display = 'none';
-            // document.querySelector("#finish_video").querySelector('video').play();
-            setTimeout(() => {
-                document.querySelector("#finish_video").style.display = 'none';
-                const video = document.querySelector("#finish_video").querySelector('video');
-                video.pause();       // 비디오 일시정지
-                video.currentTime = 0; // 시작 타임(0초)으로 리셋
-                // 5000
-            }, 5000);
+            // document.querySelector("#finish_video").style.display = 'none';
+            // // document.querySelector("#finish_video").querySelector('video').play();
+            // setTimeout(() => {
+            //     document.querySelector("#finish_video").style.display = 'none';
+            //     const video = document.querySelector("#finish_video").querySelector('video');
+            //     video.pause();       // 비디오 일시정지
+            //     video.currentTime = 0; // 시작 타임(0초)으로 리셋
+            //     // 5000
+            // }, 5000);
         }
         hide_game_section(){
             document.querySelectorAll('.game_section').forEach(section => {
@@ -1838,7 +1840,7 @@
             document.querySelector(".game_gaze_bar__progress_circle").querySelector('.finish').style.display = 'block';
 
             document.querySelector("#finaly_common_section").classList.add('on');
-            document.querySelector("#finish_video").style.display = 'none';
+            // document.querySelector("#finish_video").style.display = 'none';
             // document.querySelector("#finish_video").style.display = 'block';
             // document.querySelector("#finish_video").querySelector('video').play();
             // setTimeout(() => {
@@ -1899,7 +1901,6 @@
                 game_hint_open.classList.remove('active')
             })
 
-            console.log(this.currentPage);
             let hint_text = this.simpleVerseData[this.currentPage].text
             game_hint_open.addEventListener('click',function(){
                 game_card_hint.classList.add('on')
@@ -2051,7 +2052,7 @@
         finaly_section_show() {
             this.currentPage = 0;
             document.querySelector("#finaly_common_section").classList.add('on');
-            document.querySelector("#finish_video").style.display = 'none';
+            // document.querySelector("#finish_video").style.display = 'none';
             // document.querySelector("#finish_video").style.display = 'block';
             // document.querySelector("#finish_video").querySelector('video').play();
             // setTimeout(() => {
@@ -2116,14 +2117,17 @@
         moveToStep(nextStep);
 
         fill_progress_bard(7);
-        console.log(123);
+
         document.querySelector("#finaly_common_section").classList.remove('on');
         if(game.level == 1){
             blankFiller.init()
+            blankFiller.currentPageReset();
         }else if(game.level == 2){
             flowFiller.init();
+            flowFiller.currentPageReset();
         }else if(game.level == 3) {
             typingFiller.init();
+            typingFiller.currentPageReset();
         }
 
     }

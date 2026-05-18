@@ -1,3 +1,4 @@
+
 #finaly_common_section .bottom_btn_area{
     width: 340px; display: flex; justify-content: space-between; gap: 10px; margin-top: 100px;
 }
@@ -419,7 +420,7 @@
         display: flex;
         align-items: center;
         position: relative;
-        top: 3px;
+        top: 12px;
     }
     #step-3 .top_area .range > p {
         font-family: Pretendard;
@@ -435,9 +436,22 @@
         display: flex;
         cursor: pointer;
         position: relative;
-        top: 3px;
+        top: 0px;
+        gap: 8px;
     }
-    #step-3 .rang_switch p {
+
+    #step-3 .rang_switch__btn{
+        width: 80px; 
+        height:40px;
+        border: 2px solid #E5E5E5;
+        box-shadow: 0px 2px 0px 0px #E5E5E5;
+        background-color: #fff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #step-3 .rang_switch__btn p {
         font-weight: 600;
         font-size: 14px;
         letter-spacing: -2.5%;
@@ -446,15 +460,42 @@
         color: #505050;
     }
 
-    #step-3 .rang_switch.off .bar{
-        background-color: #1CB0F5;
+    #step-3 .rang_switch.off .rang_switch__btn_select_individual{
+        border: 2px solid #E5E5E5;
+        box-shadow: 0px 2px 0px 0px #E5E5E5;
+        background-color: #fff;
+    }
+    
+    #step-3 .rang_switch.off .rang_switch__btn_select_individual > p {
+        color: #505050;
     }
 
-    #step-3 .rang_switch.off .bar__ball{
-        
-        border: 1.5px solid #1CB0F5;
-        box-shadow: 0px 1.5px 0px 0px #1CB0F5;
+    #step-3 .rang_switch.off .rang_switch__btn_select_rang{
+        border: 2px solid #1CB0F5;
+        background-color: #84D8FE;
+        box-shadow: 0px 2px 0px 0px #0065A2;
+        position: relative;
     }
+    #step-3 .rang_switch.off .rang_switch__btn_select_rang p{
+        color: #0065A2;
+    }
+
+    #step-3 .rang_switch .rang_switch__btn_select_individual > p{
+        color: #0065A2;
+    }
+    #step-3 .rang_switch .rang_switch__btn_select_individual{
+        border: 2px solid #1CB0F5;
+        background-color: #84D8FE;
+        box-shadow: 0px 2px 0px 0px #0065A2;
+        position: relative;
+    }
+    
+    #step-3 .rang_switch .rang_switch__btn_select_rang{
+        border: 2px solid #E5E5E5;
+        box-shadow: 0px 2px 0px 0px #E5E5E5;
+        background-color: #fff;
+    }
+    
     #step-3 .rang_switch .bar{
         width: 40px;
         height: 20px;

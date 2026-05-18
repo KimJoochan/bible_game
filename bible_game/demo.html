@@ -341,10 +341,16 @@
                         </svg>
                     </div>
                     <div class="rang_switch off">
-                        <p>범위 선택</p>
+                        <div class="rang_switch__btn rang_switch__btn_select_individual">
+                            <p>개별 선택</p>
+                        </div>
+                        <div class="rang_switch__btn rang_switch__btn_select_rang">
+                            <p>범위 선택</p>
+                        </div>
+                        <!-- <p>범위 선택</p>
                         <div class="bar">
                             <div class="bar__ball"></div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <img src="./img/v2/sectel01_v2.png" alt="섹텔" class="char">
@@ -611,8 +617,13 @@
                 <div class="bottom_btn_area__inner" data-theme="confirm">
                     <h3 class="bottom_btn_area__txt">완성 했어요!!</h3>
                 </div>
-                <div class="bottom_btn_area__inner fail" data-theme="retry">
-                    <h3 class="bottom_btn_area__txt">다시 풀어보기</h3>
+                <div class="bottom_btn_area__inner fail">
+                    <div class="bottom_btn_area__inner_btn" data-theme="retry">
+                        <h3 class="bottom_btn_area__txt">다시풀기</h3>
+                    </div>
+                    <div class="bottom_btn_area__inner_btn__pass" data-theme="success">
+                        <h3 class="bottom_btn_area__txt">건너뛰기</h3>
+                    </div>
                 </div>
                 <div class="bottom_btn_area__inner success" data-theme="success">
                     <h3 class="bottom_btn_area__txt">다음 단계로 넘어가기</h3>
@@ -1940,9 +1951,17 @@
                     btnArea.classList.add('on');
                 }else{
                     btnArea.classList.remove('on');
-                }
-                
+                }    
             });
+
+            document.getElementById('three-bottom_btn_area').querySelector(".bottom_btn_area__inner_btn").addEventListener('click',()=>{
+                this.blank_reset();
+            })
+
+            document.getElementById('three-bottom_btn_area').querySelector(".bottom_btn_area__inner_btn__pass").addEventListener('click',()=>{
+                this.blank_reset();
+                this.next_round();
+            })
             this.isEventsBound = true;
         }
         // 가사 영역 렌더링
